@@ -46,23 +46,7 @@
 
     .photo-small { height: 140px; }
 
-    .poem {
-      font-size: clamp(1rem, 1.3vw, 1.25rem);
-      font-style: italic;
-      line-height: 2;
-      color: #d0d0d0;
-      margin-bottom: 1.25rem;
-    }
-
-    .poem-card .card-body {
-      justify-content: space-evenly !important;
-      padding: 1.5rem;
-    }
-
-    @media (min-width: 992px) {
-      .poem-card  { flex: 2 1 0; }
-      .photo-card { flex: 1 1 0; }
-    }
+    .poem { color: #d0d0d0; }
 
     .hero-photo { object-position: center top; }
 
@@ -110,17 +94,17 @@
 
       <div class="col-12 col-lg-3 d-flex flex-column gap-3">
 
-        <div class="card poem-card flex-grow-1">
-          <div class="card-body d-flex flex-column justify-content-center">
+        <div class="card flex-grow-1">
+          <div class="card-body d-flex flex-column justify-content-evenly p-4">
             <p class="label">poem</p>
             <h5 class="card-title">What the heart keeps</h5>
-            <p class="poem">I still set a place for you<br>in the quiet hours of the day,<br>the stairwell, the long way home,<br>the minute before the light comes in.</p>
-            <p class="poem">You are not here. I know.<br>But longing is a kind of faith<br>that something loved this much<br>cannot simply stop being.</p>
-            <p class="poem mb-0">And if the ache is all that's left,<br>let it stay.<br>It means someone was worth missing.</p>
+            <p class="poem fs-5 lh-lg fst-italic mb-0">I still set a place for you<br>in the quiet hours of the day,<br>the stairwell, the long way home,<br>the minute before the light comes in.</p>
+            <p class="poem fs-5 lh-lg fst-italic mb-0">You are not here. I know.<br>But longing is a kind of faith<br>that something loved this much<br>cannot simply stop being.</p>
+            <p class="poem fs-5 lh-lg fst-italic mb-0">And if the ache is all that's left,<br>let it stay.<br>It means someone was worth missing.</p>
           </div>
         </div>
 
-        <div class="card photo-card flex-grow-1">
+        <div class="card flex-grow-0">
           <img src="image3.png" class="photo flex-grow-1" alt="Black and white photo of a person lying on the grass">
         </div>
 
