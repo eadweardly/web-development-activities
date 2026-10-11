@@ -44,6 +44,8 @@
       filter: grayscale(1) contrast(1.1);
     }
 
+    .hero-photo { object-position: center top; }
+
     .facts { list-style: none; padding: 0; margin: 0.75rem 0 0; }
     .facts li {
       display: flex;
@@ -63,6 +65,13 @@
       padding: 0.25rem 0.75rem;
       font-size: 0.8rem;
       margin: 0 0.35rem 0.5rem 0;
+    }
+
+    .quote {
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.4;
+      color: #f2f2f2;
     }
 
     .blank-card {
@@ -115,8 +124,8 @@
       <div class="col-12 col-lg-6 d-flex flex-column gap-3">
 
         <div class="card flex-grow-1">
-          <img src="image.png" class="photo flex-grow-1" alt="Person standing on a graffiti-covered car on a beach">
-          <div class="card-body">
+          <img src="image.png" class="photo hero-photo flex-grow-1" alt="Person standing on a graffiti-covered car on a beach">
+          <div class="card-body flex-grow-0">
             <h1 class="card-title fs-2 mb-1">about you</h1>
             <p class="card-text mb-0">the 1975</p>
           </div>
@@ -176,11 +185,10 @@
         </div>
 
         <div class="card flex-grow-1">
-          <div class="card-body">
-            <p class="label">excerpt</p>
-            <p class="card-text fst-italic">A quiet, late-night song about looking back. It is not angry or dramatic. It just keeps returning to the same person and the same memories.</p>
-            <p class="card-text fst-italic">It sounds like someone replaying a relationship in their head, long after it ended, and admitting they still think about it.</p>
-            <p class="card-text mb-0">Replace this with your own notes or a short quote you wrote down.</p>
+          <div class="card-body d-flex flex-column justify-content-center">
+            <p class="label">quote</p>
+            <p class="quote">"We don't miss people. We miss who we were when they were near."</p>
+            <p class="card-text fst-italic mb-0">"Life can only be understood backwards; but it must be lived forwards." — Søren Kierkegaard</p>
           </div>
         </div>
 
