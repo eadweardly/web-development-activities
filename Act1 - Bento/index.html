@@ -48,6 +48,8 @@
 
     .poem { color: #d0d0d0; }
 
+    .play-btn { width: 3rem; height: 3rem; flex-shrink: 0; }
+
     .hero-photo { object-position: center top; }
 
     .facts { list-style: none; padding: 0; margin: 0.75rem 0 0; }
@@ -131,6 +133,17 @@
                 <ul class="facts">
                   <li><span>album release date</span><span>14 October 2022</span></li>
                 </ul>
+                <audio id="audio" src="about-you.mp3" preload="metadata"></audio>
+                <div class="d-flex align-items-center gap-3 mt-3">
+                  <button id="playBtn" type="button" class="btn btn-light rounded-circle play-btn d-flex align-items-center justify-content-center p-0" aria-label="Play">&#9654;</button>
+                  <div class="flex-grow-1">
+                    <input id="seek" type="range" class="form-range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+                    <div class="d-flex justify-content-between label mb-0">
+                      <span id="current">0:00</span>
+                      <span id="duration">0:00</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -193,6 +206,56 @@
 
     </div>
   </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
+    const seek = document.getElementById('seek');
+    const current = document.getElementById('current');
+    const duration = document.getElementById('duration');
+
+    const fmt = (t) => {
+      const m = Math.floor(t / 60);
+      const sec = Math.floor(t % 60).toString().padStart(2, '0');
+      return m + ':' + sec;
+    };
+
+    const setPlaying = (playing) => {
+      playBtn.innerHTML = playing ? '&#10074;&#10074;' : '&#9654;';
+      playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    };
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener('play', () => setPlaying(true));
+    audio.addEventListener('pause', () => setPlaying(false));
+    audio.addEventListener('ended', () => {
+      setPlaying(false);
+      seek.value = 0;
+      current.textContent = fmt(0);
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      duration.textContent = fmt(audio.duration);
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration) return;
+      seek.value = (audio.currentTime / audio.duration) * 100;
+      current.textContent = fmt(audio.currentTime);
+    });
+
+    seek.addEventListener('input', () => {
+      if (!audio.duration) return;
+      audio.currentTime = (seek.value / 100) * audio.duration;
+    });
+  </script>
 
 </body>
 </html>
