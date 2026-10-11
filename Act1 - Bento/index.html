@@ -8,37 +8,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #000000;
-      --card-bg: #0e0e0e;
-      --border: #3a3a3a;
-      --text: #f2f2f2;
-      --muted: #8d8d8d;
-      --radius: 22px;
-    }
-
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: #000000;
+      color: #f2f2f2;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      pointer-events: none;
-      opacity: 0.16;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      min-height: 100vh;
     }
 
     .card {
-      background-color: var(--card-bg);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      background-color: #0e0e0e;
+      color: #f2f2f2;
+      border: 1px solid #3a3a3a;
+      border-radius: 22px;
       overflow: hidden;
     }
 
@@ -47,20 +28,21 @@
     .card-title {
       font-size: 1.15rem;
       font-weight: 500;
-      letter-spacing: -0.01em;
       margin-bottom: 0.5rem;
     }
 
-    .card-text { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+    .card-text { color: #8d8d8d; font-size: 0.9rem; line-height: 1.5; }
 
-    .label { color: var(--muted); font-size: 0.78rem; margin-bottom: 0.4rem; }
-    .big-text { font-size: clamp(1.5rem, 4vw, 1.8rem); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; }
+    .label { color: #8d8d8d; font-size: 0.78rem; margin-bottom: 0.4rem; }
+    .big-text { font-size: 1.8rem; font-weight: 500; line-height: 1.1; }
 
-    .card-s    { min-height: 8.5rem; }
-    .card-m    { min-height: 12rem; }
-    .card-l    { min-height: 12rem; }
-    .card-xs   { min-height: 9rem; }
-    .card-hero { min-height: clamp(16rem, 45vw, 26rem); }
+    .photo {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center;
+      filter: grayscale(1) contrast(1.1);
+    }
 
     .facts { list-style: none; padding: 0; margin: 0.75rem 0 0; }
     .facts li {
@@ -68,59 +50,38 @@
       justify-content: space-between;
       gap: 1rem;
       padding: 0.5rem 0;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #3a3a3a;
       font-size: 0.85rem;
-      color: var(--muted);
+      color: #8d8d8d;
     }
-    .facts li span:last-child { color: var(--text); text-align: right; }
+    .facts li span:last-child { color: #f2f2f2; text-align: right; }
 
     .tag {
       display: inline-block;
-      border: 1px solid var(--border);
+      border: 1px solid #3a3a3a;
       border-radius: 50rem;
       padding: 0.25rem 0.75rem;
       font-size: 0.8rem;
       margin: 0 0.35rem 0.5rem 0;
     }
 
-    .grow-1 { flex-grow: 1; }
-    .grow-2 { flex-grow: 2; }
-
-    .hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      filter: grayscale(1) contrast(1.1);
-    }
-
-    .card-img-overlay {
-      background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0) 45%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
     .blank-card {
       background-color: transparent;
       border-style: dashed;
-      align-items: center;
-      justify-content: center;
+      min-height: 150px;
     }
     .blank-card span { color: #4a4a4a; font-size: 0.85rem; }
   </style>
 </head>
 
-<body>
+<body class="d-flex flex-column">
 
-  <div class="container-fluid p-3 p-md-4 min-vh-100 d-flex flex-column">
+  <div class="container-fluid p-3 flex-grow-1 d-flex flex-column">
     <div class="row g-3 flex-grow-1">
 
-      <div class="col-12 col-sm-6 col-lg-3 order-2 order-lg-1 d-flex flex-column gap-3">
+      <div class="col-12 col-lg-3 d-flex flex-column gap-3">
 
-        <div class="card card-s grow-1">
+        <div class="card flex-grow-1">
           <div class="card-body">
             <p class="label">artist</p>
             <h2 class="big-text">The 1975</h2>
@@ -132,7 +93,7 @@
           </div>
         </div>
 
-        <div class="card card-m grow-2">
+        <div class="card flex-grow-1">
           <div class="card-body">
             <p class="label">album</p>
             <h5 class="card-title">Being Funny in a Foreign Language</h5>
@@ -145,17 +106,17 @@
           </div>
         </div>
 
-        <div class="card card-l grow-2 blank-card">
-          <span>empty card</span>
+        <div class="card flex-grow-1">
+          <img src="image2.jpg" class="photo flex-grow-1" alt="Black and white painting detail of a figure hiding half his face behind his arm">
         </div>
 
       </div>
 
-      <div class="col-12 col-lg-6 order-1 order-lg-2 d-flex flex-column gap-3">
+      <div class="col-12 col-lg-6 d-flex flex-column gap-3">
 
-        <div class="card card-hero grow-1 position-relative">
-          <img src="image.png" class="hero-img" alt="Person standing on a graffiti-covered car on a beach">
-          <div class="card-img-overlay p-4">
+        <div class="card flex-grow-1">
+          <img src="image.png" class="photo flex-grow-1" alt="Person standing on a graffiti-covered car on a beach">
+          <div class="card-body">
             <h1 class="card-title fs-2 mb-1">about you</h1>
             <p class="card-text mb-0">the 1975</p>
           </div>
@@ -163,8 +124,8 @@
 
         <div class="row g-3">
 
-          <div class="col-12 col-sm-6 col-xl-5">
-            <div class="card card-xs h-100">
+          <div class="col-12 col-xl-4">
+            <div class="card h-100">
               <div class="card-body">
                 <p class="label">song</p>
                 <h5 class="card-title">About You</h5>
@@ -173,8 +134,8 @@
             </div>
           </div>
 
-          <div class="col-12 col-sm-6 col-xl-4">
-            <div class="card card-xs h-100">
+          <div class="col-12 col-xl-4">
+            <div class="card h-100">
               <div class="card-body">
                 <p class="label">album release date</p>
                 <h5 class="card-title">14 October 2022</h5>
@@ -183,8 +144,8 @@
             </div>
           </div>
 
-          <div class="col-12 col-xl-3">
-            <div class="card card-xs h-100 blank-card">
+          <div class="col-12 col-xl-4">
+            <div class="card blank-card h-100 d-flex justify-content-center align-items-center">
               <span>empty card</span>
             </div>
           </div>
@@ -193,9 +154,9 @@
 
       </div>
 
-      <div class="col-12 col-sm-6 col-lg-3 order-3 d-flex flex-column gap-3">
+      <div class="col-12 col-lg-3 d-flex flex-column gap-3">
 
-        <div class="card card-m grow-2">
+        <div class="card flex-grow-1">
           <div class="card-body">
             <p class="label">key themes</p>
             <h5 class="card-title">Memory and what's left</h5>
@@ -210,11 +171,11 @@
           </div>
         </div>
 
-        <div class="card card-s grow-1 blank-card">
+        <div class="card blank-card flex-grow-1 d-flex justify-content-center align-items-center">
           <span>empty card</span>
         </div>
 
-        <div class="card card-l grow-2">
+        <div class="card flex-grow-1">
           <div class="card-body">
             <p class="label">excerpt</p>
             <p class="card-text fst-italic">A quiet, late-night song about looking back. It is not angry or dramatic. It just keeps returning to the same person and the same memories.</p>
