@@ -7,7 +7,7 @@
 <p align="center">
   A collection of my Web Development activities, exercises, and projects.
   <br>
-  Built with creativity, code, and continuous learning. 💙
+  Built with creativity, code, and continuous learning.
 </p>
 
 ---
