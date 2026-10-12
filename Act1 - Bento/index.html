@@ -10,15 +10,20 @@
 
   <style>
     html {
+      scrollbar-gutter: auto;
       color-scheme: dark;
       font-size: max(
-        clamp(0px, calc((1200px - 100vw) * 100), 16px),
-        clamp(9px, min(calc(100vw / 118), calc(100vh / 58)), 24px)
+        clamp(0px, calc((992px - 100vw) * 100), 16px),
+        clamp(11px, min(calc(100vw / 118), calc(100vh / 58)), 24px)
       );
     }
 
+    h5, p { margin: 0; }
+
     body {
+      line-height: 1.5;
       min-height: 100vh;
+      min-height: 100dvh;
       background-color: #000000;
       color: #f2f2f2;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -37,12 +42,17 @@
     .card-title {
       font-size: 1.15rem;
       font-weight: 500;
+      line-height: 1.2;
       margin-bottom: 0.5rem;
     }
+    #trackTitle, #trackArtist { margin-bottom: 0; }
 
-    .card-text { color: #8d8d8d; font-size: 0.9rem; line-height: 1.5; }
+    .card-text { color: #8d8d8d; font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.4rem; }
+    .card-text:last-child { margin-bottom: 0; }
 
-    .eyebrow { color: #8d8d8d; font-size: 0.78rem; margin-bottom: 0.4rem; }
+    .eyebrow { color: #8d8d8d; font-size: 0.85rem; margin-bottom: 0.4rem; }
+    .times { margin-bottom: 0; }
+    .poem-body { padding: 1.5rem; }
 
     .photo-card { position: relative; }
 
@@ -56,19 +66,30 @@
       filter: grayscale(1) contrast(1.1);
     }
 
+    /* Pantay na gilid: sariling pin sa row at columns para laging magkapareho ang kaliwa at kanang margin */
+    .bento-row {
+      width: calc(100% + 1rem);
+      max-width: none;
+      margin-inline: -0.5rem;
+    }
+    .bento-row > * {
+      padding-inline: 0.5rem;
+      margin-inline: 0;
+    }
+
     /* Hero at Icarus photo: sila ang sumasagot sa natitirang taas ng column */
-    .hero-card { flex: 1 1 0; min-height: min(60vw, 24rem); }
-    .eye-card { flex: 1 1 0; min-height: min(30vw, 7.5rem); }
+    .hero-card { flex: 1 1 0; min-height: min(60vw, 14rem); }
+    .eye-card { flex: 1 1 0; min-height: min(30vw, 6rem); }
 
     /* Grass photo at quote card: parehong taas */
-    .equal-card { height: 16rem; flex-shrink: 0; }
+    .equal-card { height: 15.5rem; flex-shrink: 0; }
 
     /* Song card at SpongeBob card: parehong taas */
     .song-card,
-    .sponge-card { height: 14rem; }
+    .sponge-card { height: 12rem; }
 
     .poem-title {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 700;
       border-bottom: 1px solid #3a3a3a;
       margin-bottom: 0;
@@ -76,9 +97,9 @@
 
     .poem {
       color: #d0d0d0;
-      font-size: clamp(0.95rem, 3.4vw, 1.25rem);
+      font-size: clamp(0.95rem, 3.4vw, 1.1rem);
       font-style: italic;
-      line-height: 2;
+      line-height: 1.6;
     }
 
     /* Buttons (sariling style para hindi nakadepende sa .btn ng v6) */
@@ -140,14 +161,14 @@
       background-color: #f2f2f2;
     }
 
-    .fact-list { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+    .fact-list { list-style: none; padding: 0; margin: 0.5rem 0 0; }
     .fact-list li {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
-      padding: 0.35rem 0;
+      padding: 0.25rem 0;
       border-top: 1px solid #3a3a3a;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #8d8d8d;
     }
     .fact-list li span:last-child { color: #f2f2f2; text-align: right; }
@@ -156,9 +177,9 @@
       display: inline-block;
       border: 1px solid #3a3a3a;
       border-radius: 50rem;
-      padding: 0.2rem 0.7rem;
-      font-size: 0.8rem;
-      margin: 0 0.35rem 0.4rem 0;
+      padding: 0.12rem 0.65rem;
+      font-size: 0.85rem;
+      margin: 0 0.3rem 0.3rem 0;
     }
 
     .quote-main {
@@ -166,6 +187,7 @@
       font-style: italic;
       line-height: 1.4;
       color: #f2f2f2;
+      margin-bottom: 0.5rem;
     }
 
     .quote-sub { font-style: italic; }
@@ -175,13 +197,13 @@
 <body class="d-flex flex-column">
 
   <div class="container-fluid p-5 flex-grow-1 d-flex flex-column">
-    <div class="row g-5 flex-grow-1">
+    <div class="row bento-row g-5 flex-grow-1">
 
       <!-- LEFT COLUMN -->
-      <div class="col-12 md:col-6 xl:col-3 d-flex flex-column gap-5">
+      <div class="col-12 md:col-6 lg:col-3 d-flex flex-column gap-5">
 
         <div class="card flex-grow-1">
-          <div class="card-body d-flex flex-column justify-content-evenly gap-3 p-7">
+          <div class="card-body poem-body d-flex flex-column justify-content-evenly gap-3">
             <p class="eyebrow">poem</p>
             <h5 class="card-title poem-title pb-5">What the heart keeps</h5>
             <p class="poem mb-0">I still set a place for you<br>in the quiet hours of the day,<br>the stairwell, the long way home,<br>the minute before the light comes in.</p>
@@ -197,13 +219,13 @@
       </div>
 
       <!-- MIDDLE COLUMN -->
-      <div class="col-12 xl:col-6 order-first xl:order-0 d-flex flex-column gap-5">
+      <div class="col-12 lg:col-6 order-first lg:order-0 d-flex flex-column gap-5">
 
         <div class="card photo-card hero-card">
           <img src="image.png" class="photo" alt="Person standing on a graffiti-covered car on a beach">
         </div>
 
-        <div class="row g-5">
+        <div class="row bento-row g-5">
 
           <div class="col-12 sm:col-8">
             <div class="card song-card">
@@ -222,7 +244,7 @@
 
                 <div>
                   <input id="seek" type="range" class="seek" min="0" max="100" value="0" step="0.1" aria-label="Seek">
-                  <div class="d-flex justify-content-between eyebrow mb-0">
+                  <div class="d-flex justify-content-between eyebrow times">
                     <span id="current">0:00</span>
                     <span id="duration">0:00</span>
                   </div>
@@ -254,7 +276,7 @@
       </div>
 
       <!-- RIGHT COLUMN -->
-      <div class="col-12 md:col-6 xl:col-3 d-flex flex-column gap-5">
+      <div class="col-12 md:col-6 lg:col-3 d-flex flex-column gap-5">
 
         <div class="card flex-shrink-0">
           <div class="card-body">
@@ -418,6 +440,34 @@
       if (!audio.duration) return;
       audio.currentTime = (seek.value / 100) * audio.duration;
     });
+
+    /* Auto-fit: sa landscape (992px pataas) bumababa ang laki ng text hanggang kumasya
+       sa taas ng screen, para walang scroll kahit magkaiba ang browser o device. */
+    const root = document.documentElement;
+    const MIN_FIT = 9;
+    let fitQueued = false;
+
+    const fitToScreen = () => {
+      fitQueued = false;
+      root.style.fontSize = '';
+      if (window.innerWidth < 992) return;
+      let size = parseFloat(getComputedStyle(root).fontSize);
+      while (root.scrollHeight > root.clientHeight + 1 && size > MIN_FIT) {
+        size -= 0.25;
+        root.style.fontSize = size + 'px';
+      }
+    };
+
+    const queueFit = () => {
+      if (fitQueued) return;
+      fitQueued = true;
+      requestAnimationFrame(fitToScreen);
+    };
+
+    window.addEventListener('resize', queueFit);
+    window.addEventListener('load', queueFit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(queueFit);
+    queueFit();
 
     loadTrack();
   </script>
