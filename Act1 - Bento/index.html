@@ -9,9 +9,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <style>
+    /* Ino-override ng Bootstrap 6 ang :root { scrollbar-gutter: stable }, kaya :root din ang gamitin dito
+       para manalo sa specificity at hindi na magreserba ng puwang sa kanan kapag walang scrollbar. */
+    :root { scrollbar-gutter: auto; }
+
     html {
       overflow-y: auto;
-      scrollbar-gutter: auto;
       color-scheme: dark;
       font-size: max(
         clamp(0px, calc((992px - 100vw) * 100), 16px),
