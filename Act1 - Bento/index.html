@@ -10,6 +10,7 @@
 
   <style>
     html {
+      overflow-y: auto;
       scrollbar-gutter: auto;
       color-scheme: dark;
       font-size: max(
@@ -21,6 +22,7 @@
     h5, p { margin: 0; }
 
     body {
+      overflow: visible;
       line-height: 1.5;
       min-height: 100vh;
       min-height: 100dvh;
@@ -450,12 +452,15 @@
     const fitToScreen = () => {
       fitQueued = false;
       root.style.fontSize = '';
+      root.style.overflowY = '';
       if (window.innerWidth < 992) return;
       let size = parseFloat(getComputedStyle(root).fontSize);
       while (root.scrollHeight > root.clientHeight + 1 && size > MIN_FIT) {
         size -= 0.25;
         root.style.fontSize = size + 'px';
       }
+      /* Kung kasya na, itago ang scrollbar para walang nakareserbang puwang sa kanan */
+      if (root.scrollHeight <= root.clientHeight + 1) root.style.overflowY = 'hidden';
     };
 
     const queueFit = () => {
