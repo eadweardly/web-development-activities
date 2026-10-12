@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About You — The 1975</title>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <style>
     html {
+      color-scheme: dark;
       font-size: max(
         clamp(0px, calc((1200px - 100vw) * 100), 16px),
         clamp(9px, min(calc(100vw / 118), calc(100vh / 58)), 24px)
@@ -17,6 +18,7 @@
     }
 
     body {
+      min-height: 100vh;
       background-color: #000000;
       color: #f2f2f2;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -40,7 +42,7 @@
 
     .card-text { color: #8d8d8d; font-size: 0.9rem; line-height: 1.5; }
 
-    .label { color: #8d8d8d; font-size: 0.78rem; margin-bottom: 0.4rem; }
+    .eyebrow { color: #8d8d8d; font-size: 0.78rem; margin-bottom: 0.4rem; }
 
     .photo-card { position: relative; }
 
@@ -54,38 +56,92 @@
       filter: grayscale(1) contrast(1.1);
     }
 
+    /* Hero at Icarus photo: sila ang sumasagot sa natitirang taas ng column */
     .hero-card { flex: 1 1 0; min-height: min(60vw, 24rem); }
     .eye-card { flex: 1 1 0; min-height: min(30vw, 7.5rem); }
-    .equal-card { min-height: 16rem; }
-    .sponge-card { aspect-ratio: 4 / 3; }
-    .song-card { min-height: 14rem; }
+
+    /* Grass photo at quote card: parehong taas */
+    .equal-card { height: 16rem; flex-shrink: 0; }
+
+    /* Song card at SpongeBob card: parehong taas */
+    .song-card,
+    .sponge-card { height: 14rem; }
+
+    .poem-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      border-bottom: 1px solid #3a3a3a;
+      margin-bottom: 0;
+    }
 
     .poem {
       color: #d0d0d0;
       font-size: clamp(0.95rem, 3.4vw, 1.25rem);
+      font-style: italic;
+      line-height: 2;
     }
 
-    .play-btn { width: 3rem; height: 3rem; flex-shrink: 0; }
-
-    .form-range { --pct: 0%; }
-    .form-range::-webkit-slider-runnable-track {
-      background: linear-gradient(to right, #f2f2f2 var(--pct), #3a3a3a var(--pct));
+    /* Buttons (sariling style para hindi nakadepende sa .btn ng v6) */
+    .icon-btn {
+      background: none;
+      border: 0;
+      padding: 0;
+      line-height: 1;
+      cursor: pointer;
+      color: #8d8d8d;
     }
-    .form-range::-webkit-slider-thumb,
-    .form-range::-webkit-slider-thumb:active { background-color: #f2f2f2; }
-    .form-range::-moz-range-track { background-color: #3a3a3a; }
-    .form-range::-moz-range-progress {
+    .icon-btn.lit { color: #f2f2f2; }
+    .icon-btn-sm { font-size: 1.5rem; }
+    .icon-btn-lg { font-size: 2rem; color: #f2f2f2; }
+
+    .play-btn {
+      width: 3rem;
+      height: 3rem;
+      flex-shrink: 0;
+      border: 0;
+      border-radius: 50%;
+      padding: 0;
       background-color: #f2f2f2;
-      height: 0.5rem;
-      border-radius: 1rem;
+      color: #000000;
+      font-size: 1.75rem;
+      cursor: pointer;
     }
-    .form-range::-moz-range-thumb,
-    .form-range::-moz-range-thumb:active { background-color: #f2f2f2; }
-    .form-range:focus::-webkit-slider-thumb,
-    .form-range:focus::-moz-range-thumb { box-shadow: none; }
 
-    .facts { list-style: none; padding: 0; margin: 0.75rem 0 0; }
-    .facts li {
+    /* Seek bar (plain input, hindi ginagamit ang .form-range ng v6) */
+    .seek {
+      --pct: 0%;
+      -webkit-appearance: none;
+      appearance: none;
+      display: block;
+      width: 100%;
+      height: 0.5rem;
+      margin: 0.6rem 0;
+      border-radius: 1rem;
+      outline: none;
+      background: linear-gradient(to right, #f2f2f2 var(--pct), #3a3a3a var(--pct));
+      cursor: pointer;
+    }
+    .seek::-webkit-slider-runnable-track { height: 0.5rem; background: transparent; }
+    .seek::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 1rem;
+      height: 1rem;
+      margin-top: -0.25rem;
+      border: 0;
+      border-radius: 50%;
+      background-color: #f2f2f2;
+    }
+    .seek::-moz-range-track { height: 0.5rem; background: transparent; }
+    .seek::-moz-range-thumb {
+      width: 1rem;
+      height: 1rem;
+      border: 0;
+      border-radius: 50%;
+      background-color: #f2f2f2;
+    }
+
+    .fact-list { list-style: none; padding: 0; margin: 0.75rem 0 0; }
+    .fact-list li {
       display: flex;
       justify-content: space-between;
       gap: 1rem;
@@ -94,9 +150,9 @@
       font-size: 0.85rem;
       color: #8d8d8d;
     }
-    .facts li span:last-child { color: #f2f2f2; text-align: right; }
+    .fact-list li span:last-child { color: #f2f2f2; text-align: right; }
 
-    .tag {
+    .theme-tag {
       display: inline-block;
       border: 1px solid #3a3a3a;
       border-radius: 50rem;
@@ -105,29 +161,32 @@
       margin: 0 0.35rem 0.4rem 0;
     }
 
-    .quote {
-      font-size: 1.4rem;
+    .quote-main {
+      font-size: clamp(1.05rem, 1.3vw, 1.4rem);
       font-style: italic;
       line-height: 1.4;
       color: #f2f2f2;
     }
+
+    .quote-sub { font-style: italic; }
   </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column">
 
-  <div class="container-fluid p-3 flex-grow-1 d-flex flex-column">
-    <div class="row g-3 flex-grow-1">
+  <div class="container-fluid p-5 flex-grow-1 d-flex flex-column">
+    <div class="row g-5 flex-grow-1">
 
-      <div class="col-12 col-md-6 col-xl-3 d-flex flex-column gap-3">
+      <!-- LEFT COLUMN -->
+      <div class="col-12 md:col-6 xl:col-3 d-flex flex-column gap-5">
 
         <div class="card flex-grow-1">
-          <div class="card-body d-flex flex-column justify-content-evenly gap-2 p-4">
-            <p class="label">poem</p>
-            <h5 class="card-title fs-3 fw-bold pb-3 mb-0 border-bottom border-secondary">What the heart keeps</h5>
-            <p class="poem lh-lg fst-italic mb-0">I still set a place for you<br>in the quiet hours of the day,<br>the stairwell, the long way home,<br>the minute before the light comes in.</p>
-            <p class="poem lh-lg fst-italic mb-0">You are not here. I know.<br>But longing is a kind of faith<br>that something loved this much<br>cannot simply stop being.</p>
-            <p class="poem lh-lg fst-italic mb-0">And if the ache is all that's left,<br>let it stay.<br>It means someone was worth missing.</p>
+          <div class="card-body d-flex flex-column justify-content-evenly gap-3 p-7">
+            <p class="eyebrow">poem</p>
+            <h5 class="card-title poem-title pb-5">What the heart keeps</h5>
+            <p class="poem mb-0">I still set a place for you<br>in the quiet hours of the day,<br>the stairwell, the long way home,<br>the minute before the light comes in.</p>
+            <p class="poem mb-0">You are not here. I know.<br>But longing is a kind of faith<br>that something loved this much<br>cannot simply stop being.</p>
+            <p class="poem mb-0">And if the ache is all that's left,<br>let it stay.<br>It means someone was worth missing.</p>
           </div>
         </div>
 
@@ -137,23 +196,24 @@
 
       </div>
 
-      <div class="col-12 col-xl-6 order-first order-xl-0 d-flex flex-column gap-3">
+      <!-- MIDDLE COLUMN -->
+      <div class="col-12 xl:col-6 order-first xl:order-0 d-flex flex-column gap-5">
 
         <div class="card photo-card hero-card">
           <img src="image.png" class="photo" alt="Person standing on a graffiti-covered car on a beach">
         </div>
 
-        <div class="row g-3">
+        <div class="row g-5">
 
-          <div class="col-12 col-sm-8">
-            <div class="card h-100 song-card">
+          <div class="col-12 sm:col-8">
+            <div class="card song-card">
               <div class="card-body d-flex flex-column justify-content-between">
                 <div class="d-flex justify-content-between align-items-start">
                   <div>
                     <h5 id="trackTitle" class="card-title mb-0">About You</h5>
                     <p id="trackArtist" class="card-text mb-0">by The 1975</p>
                   </div>
-                  <button id="likeBtn" type="button" class="btn btn-link text-secondary p-0 fs-4 lh-1" aria-label="Like" aria-pressed="false">
+                  <button id="likeBtn" type="button" class="icon-btn icon-btn-sm" aria-label="Like" aria-pressed="false">
                     <i class="bi bi-heart"></i>
                   </button>
                 </div>
@@ -161,21 +221,21 @@
                 <audio id="audio" src="about-you.mp3" preload="metadata"></audio>
 
                 <div>
-                  <input id="seek" type="range" class="form-range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
-                  <div class="d-flex justify-content-between label mb-0">
+                  <input id="seek" type="range" class="seek" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+                  <div class="d-flex justify-content-between eyebrow mb-0">
                     <span id="current">0:00</span>
                     <span id="duration">0:00</span>
                   </div>
                 </div>
 
-                <div class="d-flex justify-content-center align-items-center gap-4">
-                  <button id="restartBtn" type="button" class="btn btn-link text-light p-0 fs-2 lh-1" aria-label="Restart">
+                <div class="d-flex justify-content-center align-items-center gap-7">
+                  <button id="restartBtn" type="button" class="icon-btn icon-btn-lg" aria-label="Restart">
                     <i class="bi bi-skip-start-fill"></i>
                   </button>
-                  <button id="playBtn" type="button" class="btn btn-light rounded-circle play-btn d-flex align-items-center justify-content-center p-0" aria-label="Play">
-                    <i class="bi bi-play-fill fs-3"></i>
+                  <button id="playBtn" type="button" class="play-btn d-flex align-items-center justify-content-center" aria-label="Play">
+                    <i class="bi bi-play-fill"></i>
                   </button>
-                  <button id="loopBtn" type="button" class="btn btn-link text-secondary p-0 fs-4 lh-1" aria-label="Repeat" aria-pressed="false">
+                  <button id="loopBtn" type="button" class="icon-btn icon-btn-sm" aria-label="Repeat" aria-pressed="false">
                     <i class="bi bi-repeat"></i>
                   </button>
                 </div>
@@ -183,8 +243,8 @@
             </div>
           </div>
 
-          <div class="col-12 col-sm-4">
-            <div class="card photo-card sponge-card w-100 h-100">
+          <div class="col-12 sm:col-4">
+            <div class="card photo-card sponge-card">
               <img src="image4.jpg" class="photo" alt="Black and white image of SpongeBob smiling with distorted screaming figures behind him">
             </div>
           </div>
@@ -193,33 +253,34 @@
 
       </div>
 
-      <div class="col-12 col-md-6 col-xl-3 d-flex flex-column gap-3">
+      <!-- RIGHT COLUMN -->
+      <div class="col-12 md:col-6 xl:col-3 d-flex flex-column gap-5">
 
-        <div class="card">
+        <div class="card flex-shrink-0">
           <div class="card-body">
-            <p class="label">key themes</p>
+            <p class="eyebrow">key themes</p>
             <h5 class="card-title">The ache of what is no longer here</h5>
             <p class="card-text">Yearning is the mind reaching toward something it cannot hold. It isn't only sadness. It is proof that something once mattered enough to leave a shape behind.</p>
             <p class="card-text">Longing lives between memory and hope. We look back at who we were with someone, and forward to a future that may never arrive, while the present is just the place where we wait.</p>
-            <ul class="facts">
+            <ul class="fact-list">
               <li><span>reaches for</span><span>what is no longer here</span></li>
               <li><span>lives in</span><span>memory and anticipation</span></li>
               <li><span>teaches</span><span>what we truly valued</span></li>
             </ul>
-            <div class="mt-2">
-              <span class="tag">yearning</span>
-              <span class="tag">longing</span>
-              <span class="tag">memory</span>
-              <span class="tag">absence</span>
-              <span class="tag">impermanence</span>
-              <span class="tag">nostalgia</span>
-              <span class="tag">solitude</span>
-              <span class="tag">silence</span>
-              <span class="tag">distance</span>
-              <span class="tag">grief</span>
-              <span class="tag">tenderness</span>
-              <span class="tag">hope</span>
-              <span class="tag">devotion</span>
+            <div class="mt-3">
+              <span class="theme-tag">yearning</span>
+              <span class="theme-tag">longing</span>
+              <span class="theme-tag">memory</span>
+              <span class="theme-tag">absence</span>
+              <span class="theme-tag">impermanence</span>
+              <span class="theme-tag">nostalgia</span>
+              <span class="theme-tag">solitude</span>
+              <span class="theme-tag">silence</span>
+              <span class="theme-tag">distance</span>
+              <span class="theme-tag">grief</span>
+              <span class="theme-tag">tenderness</span>
+              <span class="theme-tag">hope</span>
+              <span class="theme-tag">devotion</span>
             </div>
           </div>
         </div>
@@ -230,10 +291,10 @@
 
         <div class="card equal-card">
           <div class="card-body d-flex flex-column justify-content-center">
-            <p class="label">quote</p>
-            <p class="quote">"To long for someone is to admit that part of you still lives in a moment that no longer exists."</p>
-            <p class="card-text fst-italic">"Absence is only love with nowhere to be delivered."</p>
-            <p class="card-text fst-italic mb-0">"Life can only be understood backwards; but it must be lived forwards." — Søren Kierkegaard</p>
+            <p class="eyebrow">quote</p>
+            <p class="quote-main">"To long for someone is to admit that part of you still lives in a moment that no longer exists."</p>
+            <p class="card-text quote-sub">"Absence is only love with nowhere to be delivered."</p>
+            <p class="card-text quote-sub mb-0">"Life can only be understood backwards; but it must be lived forwards." — Søren Kierkegaard</p>
           </div>
         </div>
 
@@ -241,6 +302,8 @@
 
     </div>
   </div>
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
 
   <script>
     const API_URL = 'https://itunes.apple.com/search?term=about+you+the+1975&entity=song&limit=10';
@@ -270,7 +333,7 @@
     const paint = () => seek.style.setProperty('--pct', seek.value + '%');
 
     const setPlaying = (playing) => {
-      playIcon.className = playing ? 'bi bi-pause-fill fs-3' : 'bi bi-play-fill fs-3';
+      playIcon.className = playing ? 'bi bi-pause-fill' : 'bi bi-play-fill';
       playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play');
     };
 
@@ -315,8 +378,7 @@
 
     loopBtn.addEventListener('click', () => {
       audio.loop = !audio.loop;
-      loopBtn.classList.toggle('text-secondary', !audio.loop);
-      loopBtn.classList.toggle('text-light', audio.loop);
+      loopBtn.classList.toggle('lit', audio.loop);
       loopBtn.setAttribute('aria-pressed', audio.loop);
     });
 
@@ -324,8 +386,7 @@
       const liked = likeBtn.getAttribute('aria-pressed') !== 'true';
       likeBtn.setAttribute('aria-pressed', liked);
       likeIcon.className = liked ? 'bi bi-heart-fill' : 'bi bi-heart';
-      likeBtn.classList.toggle('text-secondary', !liked);
-      likeBtn.classList.toggle('text-light', liked);
+      likeBtn.classList.toggle('lit', liked);
     });
 
     audio.addEventListener('play', () => setPlaying(true));
