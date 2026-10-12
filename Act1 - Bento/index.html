@@ -14,6 +14,7 @@
       color: #f2f2f2;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       min-height: 100vh;
+      min-height: 100dvh;   /* dvh = real visible height on phones (ignores the URL bar) */
     }
 
     .card {
@@ -37,15 +38,17 @@
     .label { color: #8d8d8d; font-size: 0.78rem; margin-bottom: 0.4rem; }
     .big-text { font-size: 1.8rem; font-weight: 500; line-height: 1.1; }
 
+    /* Photos: always shown in full (contain), never cropped or stretched.
+       --ar (set on each <img>) is the photo's real aspect ratio. */
     .photo {
+      display: block;
       width: 100%;
-      height: 15.625rem;   /* was 250px */
-      object-fit: cover;
-      object-position: center;
+      height: auto;
+      aspect-ratio: var(--ar);
+      object-fit: contain;
+      margin: auto 0;                       /* centred if the card is taller than the photo */
       filter: grayscale(1) contrast(1.1);
     }
-
-    .photo-small { height: 8.75rem; }   /* was 140px */
 
     .poem { color: #d0d0d0; }
 
@@ -71,8 +74,6 @@
     .form-range::-moz-range-thumb:active { background-color: #f2f2f2; }
     .form-range:focus::-webkit-slider-thumb,
     .form-range:focus::-moz-range-thumb { box-shadow: none; }
-
-    .hero-photo { object-position: center top; }
 
     .facts { list-style: none; padding: 0; margin: 0.75rem 0 0; }
     .facts li {
@@ -109,47 +110,59 @@
     }
     .blank-card span { color: #4a4a4a; font-size: 0.85rem; }
 
-    /* ---- Responsive layout ----
-       Phones / narrow screens (< 900px): everything stacks in one column.
-       Everything else, including a phone using "Desktop site" (~980px wide) and
-       tablets in landscape: the 3-column bento layout. */
+    /* ================= Layout / responsiveness =================
+       Stacked (default, < 900px):   one column, natural height, page scrolls normally.
+       3-column bento (>= 900px):    columns from 25% / 50% / 25%.
+       Fit-to-screen (>= 900px wide, landscape, tall enough): the bento is exactly one
+       screen high, so there is no page scroll; photo cards shrink (letterboxed, never
+       cropped) and text cards keep their full content. */
+
+    /* Text cards grow to fill their column (as before). Photo cards keep their photo's own
+       proportions here, so a tall column never leaves big empty bars around a photo. */
+    .bento-text { flex-grow: 1; }
+    .bento-side, .bento-main, .bento-song, .bento-pic { min-width: 0; }
+
     @media (min-width: 900px) {
       .bento-side { flex: 0 0 auto; width: 25%; }
       .bento-main { flex: 0 0 auto; width: 50%; }
+      .bento-song { flex: 0 0 auto; width: 66.667%; }
+      .bento-pic  { flex: 0 0 auto; width: 33.333%; }
     }
 
-    /* 900px - 1199px: columns are narrow, so scale type and padding down a bit */
-    @media (min-width: 900px) and (max-width: 1199.98px) {
+    /* tall narrow screens (phone in "Desktop site" mode): height follows the content, and the
+       narrow columns get slightly smaller type */
+    @media (min-width: 900px) and (orientation: portrait) {
+      body { min-height: 0; }
+    }
+    @media (min-width: 900px) and (max-width: 1319.98px) and (orientation: portrait),
+           (min-width: 900px) and (max-width: 1319.98px) and (max-height: 559.98px) {
       .poem { font-size: 1rem !important; line-height: 1.8 !important; }
       .card-title.fs-3 { font-size: 1.35rem !important; }
       .card-body.p-4 { padding: 1rem !important; }
       .quote { font-size: 1.1rem; }
-      .card-text { font-size: 0.85rem; }
-      .big-text { font-size: 1.4rem; }
     }
 
-    /* Tall, narrow viewports (phone in Desktop-site mode): don't stretch the page to 100vh */
-    @media (orientation: portrait) {
-      body { min-height: 0; }
-    }
+    /* ---- Fit everything on ONE screen (landscape screens, >= 900px wide) ----
+       The layout is built in rem, so one number scales the whole bento (text, cards, photos,
+       gaps) together, keeping its proportions on any screen size or browser zoom:
+         root font = the smaller of  width/120  and  height/58   (never below 9px)
+       At 1920px wide that is exactly the original 16px design. Photos use object-fit: contain
+       (never cropped); text cards keep their full content. If the screen is too short even at
+       9px (about < 560px high) the page falls back to normal scrolling. */
+    @media (min-width: 900px) and (orientation: landscape) and (min-height: 560px) {
+      html { font-size: max(9px, min(calc(100vw / 120), calc(100vh / 58))); }
+      body { height: 100vh; height: 100dvh; min-height: 0; }
+      .container-fluid, .bento-grid, .bento-side, .bento-main { min-height: 0; }
 
-    /* ---- Zoom-out / big screens ----
-       Above 1920px wide (QHD/4K screens, or browser zoom-out: 50%, 30%...), scale the WHOLE
-       layout together (text, cards, photos, spacing) so it looks exactly like the normal
-       desktop view, just bigger, instead of stretching or leaving tiny text.
-       1920px => 16px (normal). Card sizes at 1920px and below are unchanged. */
-    @media (min-width: 1920px) {
-      html { font-size: calc(100vw / 120); }
-    }
+      /* photo cards: the <img> fills whatever size flexbox gives the card */
+      .img-card { position: relative; min-height: 5rem; }
+      .img-card .photo { position: absolute; inset: 0; height: 100%; margin: 0; }
 
-    /* ---- Phones / narrow screens (stacked): show every photo in full, nothing cropped ---- */
-    @media (max-width: 899.98px) {
-      .img-card { min-height: 0 !important; }
-      .img-card .photo { height: auto !important; object-fit: contain; }
-      .img-card img[src="image.png"]  { aspect-ratio: 738 / 414; }
-      .img-card img[src="image2.jpg"] { aspect-ratio: 736 / 414; }
-      .img-card img[src="image3.png"] { aspect-ratio: 1698 / 926; }
-      .img-card img[src="image4.jpg"] { aspect-ratio: 640 / 480; }
+      .bento-text { min-height: min-content; }              /* never clip text */
+      .bento-tall { flex: 0 1 16rem; }                      /* bottom-left photo + quote stay equal */
+      .bento-tall:not(.img-card) { min-height: min-content; }
+      .bento-hero { flex: 1 1 15.625rem; }
+      .bento-fill { flex: 1 1 8.75rem; }
     }
   </style>
 </head>
@@ -157,11 +170,11 @@
 <body class="d-flex flex-column">
 
   <div class="container-fluid p-3 flex-grow-1 d-flex flex-column">
-    <div class="row g-3 flex-grow-1">
+    <div class="row g-3 flex-grow-1 bento-grid">
 
       <div class="col-12 bento-side d-flex flex-column gap-3">
 
-        <div class="card flex-grow-1">
+        <div class="card bento-text">
           <div class="card-body d-flex flex-column justify-content-evenly p-4">
             <p class="label">poem</p>
             <h5 class="card-title fs-3 fw-bold pb-3 mb-0 border-bottom border-secondary">What the heart keeps</h5>
@@ -171,21 +184,21 @@
           </div>
         </div>
 
-        <div class="card img-card flex-grow-0 equal-card">
-          <img src="image3.png" class="photo flex-grow-1" alt="Black and white photo of a person lying on the grass">
+        <div class="card img-card bento-tall">
+          <img src="image3.png" class="photo" style="--ar: 1698 / 926" alt="Black and white photo of a person lying on the grass">
         </div>
 
       </div>
 
       <div class="col-12 bento-main d-flex flex-column gap-3">
 
-        <div class="card img-card flex-grow-1">
-          <img src="image.png" class="photo hero-photo flex-grow-1" alt="Person standing on a graffiti-covered car on a beach">
+        <div class="card img-card bento-hero">
+          <img src="image.png" class="photo" style="--ar: 738 / 414" alt="Person standing on a graffiti-covered car on a beach">
         </div>
 
         <div class="row g-3">
 
-          <div class="col-12 col-xl-8">
+          <div class="col-12 bento-song">
             <div class="card h-100 song-card">
               <div class="card-body d-flex flex-column justify-content-between">
                 <div class="d-flex justify-content-between align-items-start">
@@ -223,9 +236,9 @@
             </div>
           </div>
 
-          <div class="col-12 col-xl-4">
+          <div class="col-12 bento-pic">
             <div class="card img-card h-100">
-              <img src="image4.jpg" class="photo photo-small flex-grow-1" alt="Black and white image of SpongeBob smiling with distorted screaming figures behind him">
+              <img src="image4.jpg" class="photo" style="--ar: 640 / 480" alt="Black and white image of SpongeBob smiling with distorted screaming figures behind him">
             </div>
           </div>
 
@@ -235,7 +248,7 @@
 
       <div class="col-12 bento-side d-flex flex-column gap-3">
 
-        <div class="card flex-grow-1">
+        <div class="card bento-text">
           <div class="card-body">
             <p class="label">key themes</p>
             <h5 class="card-title">The ache of what is no longer here</h5>
@@ -264,11 +277,11 @@
           </div>
         </div>
 
-        <div class="card img-card flex-grow-1">
-          <img src="image2.jpg" class="photo photo-small flex-grow-1" alt="Black and white painting detail of a figure hiding half his face behind his arm">
+        <div class="card img-card bento-fill">
+          <img src="image2.jpg" class="photo" style="--ar: 736 / 414" alt="Black and white painting detail of a figure hiding half his face behind his arm">
         </div>
 
-        <div class="card flex-grow-0 equal-card">
+        <div class="card bento-tall equal-card">
           <div class="card-body d-flex flex-column justify-content-center">
             <p class="label">quote</p>
             <p class="quote">"To long for someone is to admit that part of you still lives in a moment that no longer exists."</p>
