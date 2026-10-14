@@ -258,7 +258,7 @@
             <p class="poem mb-0">You are not here. I know.<br>But longing is a kind of faith<br>that something loved this much<br>cannot simply stop being.</p>
             <p class="poem mb-0">And if the ache is all that's left,<br>let it stay.<br>It means someone was worth missing.</p>
           </div>
-          <video class="card-video" src="poem.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
+          <video class="card-video" src="poem.mp4" loop muted playsinline preload="auto" aria-hidden="true"></video>
         </div>
 
         <div class="card photo-card equal-card">
@@ -474,11 +474,14 @@
       current.textContent = fmt(0);
     });
 
-    audio.addEventListener('loadedmetadata', () => {
-      duration.textContent = fmt(audio.duration);
-    });
+    const showDuration = () => {
+      if (isFinite(audio.duration) && audio.duration > 0) duration.textContent = fmt(audio.duration);
+    };
+    ['loadedmetadata', 'durationchange', 'canplay', 'play'].forEach((e) => audio.addEventListener(e, showDuration));
+    showDuration();   // kung na-load na ang metadata bago pa nag-run ang script
 
     audio.addEventListener('timeupdate', () => {
+      showDuration();
       if (!audio.duration) return;
       seek.value = (audio.currentTime / audio.duration) * 100;
       paint();
@@ -496,7 +499,13 @@
     cardVideos.forEach((v) => v.addEventListener('error', () => { v.dataset.err = '1'; v.classList.remove('on'); }));
 
     const syncVideo = (v) => {
-      if (Math.abs(v.currentTime - audio.currentTime) > 0.3) v.currentTime = audio.currentTime;
+      // video na may "loop" (poem) ay inuulit habang tumutugtog pa ang kanta
+      const len = v.duration;
+      const looping = v.loop && isFinite(len) && len > 0;
+      const target = looping ? audio.currentTime % len : audio.currentTime;
+      let diff = Math.abs(v.currentTime - target);
+      if (looping) diff = Math.min(diff, len - diff);
+      if (diff > 0.3) v.currentTime = target;
     };
     const showVideos = () => cardVideos.forEach((v) => {
       if (v.dataset.err) return;
