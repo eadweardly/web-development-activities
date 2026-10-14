@@ -230,6 +230,15 @@
       .quote-card { container-type: size; }
       .quote-card .card-body { font-size: min(3.3cqw, 6.4cqh); }
     }
+
+    /* Videos: nakatago hangga't hindi tumutugtog ang song card; lumalabas sa ibabaw ng centerpiece at poem card */
+    .poem-card { position: relative; overflow: hidden; }
+    .card-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0; pointer-events: none;
+      transition: opacity .4s ease; border-radius: inherit;
+    }
+    .card-video.on { opacity: 1; }
   </style>
 </head>
 
@@ -249,6 +258,7 @@
             <p class="poem mb-0">You are not here. I know.<br>But longing is a kind of faith<br>that something loved this much<br>cannot simply stop being.</p>
             <p class="poem mb-0">And if the ache is all that's left,<br>let it stay.<br>It means someone was worth missing.</p>
           </div>
+          <video class="card-video" src="poem.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
         </div>
 
         <div class="card photo-card equal-card">
@@ -262,6 +272,7 @@
 
         <div class="card photo-card hero-card">
           <img src="image.png" class="photo" alt="Person standing on a graffiti-covered car on a beach">
+          <video class="card-video" src="centerpiece.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
         </div>
 
         <div class="row bento-row g-5">
@@ -479,6 +490,28 @@
       if (!audio.duration) return;
       audio.currentTime = (seek.value / 100) * audio.duration;
     });
+
+    /* Video sync: tumutugtog ang mga video (muted) kasabay ng song card; pag pause/stop, balik sa original na itsura */
+    const cardVideos = [...document.querySelectorAll('.card-video')];
+    cardVideos.forEach((v) => v.addEventListener('error', () => { v.dataset.err = '1'; v.classList.remove('on'); }));
+
+    const syncVideo = (v) => {
+      if (Math.abs(v.currentTime - audio.currentTime) > 0.3) v.currentTime = audio.currentTime;
+    };
+    const showVideos = () => cardVideos.forEach((v) => {
+      if (v.dataset.err) return;
+      syncVideo(v);
+      v.play().then(() => { if (!audio.paused) v.classList.add('on'); }).catch(() => {});
+    });
+    const hideVideos = () => cardVideos.forEach((v) => { v.pause(); v.classList.remove('on'); });
+
+    audio.addEventListener('play', showVideos);
+    audio.addEventListener('playing', showVideos);
+    audio.addEventListener('waiting', () => cardVideos.forEach((v) => v.pause()));
+    audio.addEventListener('pause', hideVideos);
+    audio.addEventListener('ended', hideVideos);
+    audio.addEventListener('seeked', () => cardVideos.forEach(syncVideo));
+    audio.addEventListener('timeupdate', () => cardVideos.forEach(syncVideo));
 
     /* Auto-fit: sa landscape (992px pataas) bumababa ang laki ng text hanggang kumasya
        sa taas ng screen, para walang scroll kahit magkaiba ang browser o device. */
