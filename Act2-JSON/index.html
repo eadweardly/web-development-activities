@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>EMPTY PASSENGER | Classic Car Collection</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <style>
+
+      :root {
+        --charcoal: #141414;
+        --charcoal-light: #1e1e1e;
+        --gold: #b89b5e;
+        --gold-dark: #8c733f;
+        --cream: #efe6d2;
+        --ink: #2a2620;
+      }
+
+      body {
+        background-color: var(--charcoal);
+        color: var(--cream);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+
+      h1, h2, h3, h4, h5, .navbar-brand {
+        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      }
+
+      .navbar {
+        background-color: #0c0c0c;
+        border-bottom: 1px solid var(--gold-dark);
+      }
+      .navbar-brand {
+        color: var(--gold) !important;
+        letter-spacing: 0.3em;
+        font-weight: 700;
+      }
+      .nav-link {
+        color: var(--cream) !important;
+        letter-spacing: 0.15em;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+      }
+      .nav-link:hover {
+        color: var(--gold) !important;
+      }
+
+      .hero {
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        background-color: #0c0c0c;
+        background-image: linear-gradient(rgba(10, 10, 10, 0.72), rgba(10, 10, 10, 0.92)),
+          url("images/chevrolet-bel-air-1957.jpg");
+        background-size: cover;
+        background-position: center;
+        border-bottom: 1px solid var(--gold-dark);
+      }
+      .hero-title {
+        font-size: clamp(1.8rem, 8vw, 5.5rem);
+        letter-spacing: 0.25em;
+        color: var(--gold);
+        font-weight: 700;
+      }
+      .hero-tagline {
+        font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+        font-style: italic;
+        color: var(--cream);
+      }
+      .hero-sub {
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        color: var(--gold);
+      }
+      .gold-line {
+        width: 90px;
+        height: 1px;
+        background-color: var(--gold);
+        margin: 1.5rem auto;
+      }
+
+      .section-label {
+        color: var(--gold);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .form-control, .form-select {
+        background-color: var(--charcoal-light);
+        border: 1px solid var(--gold-dark);
+        color: var(--cream);
+        border-radius: 0;
+      }
+      .form-control:focus, .form-select:focus {
+        background-color: var(--charcoal-light);
+        color: var(--cream);
+        border-color: var(--gold);
+        box-shadow: 0 0 0 0.2rem rgba(184, 155, 94, 0.25);
+      }
+      .form-control::placeholder {
+        color: #8d8573;
+      }
+
+      .btn-gold {
+        background-color: transparent;
+        color: var(--gold-dark);
+        border: 1px solid var(--gold-dark);
+        border-radius: 0;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+      .btn-gold:hover {
+        background-color: var(--gold-dark);
+        color: var(--cream);
+      }
+      .btn-outline-cream {
+        background-color: transparent;
+        color: var(--cream);
+        border: 1px solid var(--gold-dark);
+        border-radius: 0;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+      }
+      .btn-outline-cream:hover {
+        background-color: var(--gold-dark);
+        color: var(--cream);
+      }
+
+      .car-card {
+        background-color: var(--cream);
+        color: var(--ink);
+        border: 1px solid var(--gold-dark);
+        border-radius: 0;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      }
+      #collection .container {
+        max-width: 1700px;
+      }
+      .car-wide {
+        display: flex;
+        align-items: stretch;
+        min-height: clamp(500px, 30vw, 580px);
+      }
+      .car-photo {
+        position: relative;
+        flex: 0 0 54%;
+        max-width: 860px;
+        border-right: 3px double var(--gold-dark);
+        background-color: #0c0c0c;
+      }
+      .car-photo img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        filter: sepia(0.35) contrast(1.05);
+      }
+      .car-info {
+        flex: 1 1 0;
+        padding: 2rem clamp(1.5rem, 2.5vw, 2.75rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .car-card .car-year {
+        font-size: 1rem;
+      }
+      .car-card .card-title {
+        font-size: clamp(1.8rem, 2.2vw, 2.5rem);
+        line-height: 1.15;
+      }
+      .car-card .car-engine {
+        font-size: clamp(1rem, 1.1vw, 1.2rem);
+      }
+      .car-desc {
+        font-size: clamp(1.05rem, 1.2vw, 1.25rem);
+        line-height: 1.6;
+      }
+      .car-memory {
+        font-size: clamp(1rem, 1.1vw, 1.15rem);
+        font-style: italic;
+        color: var(--gold-dark);
+      }
+      .car-specs {
+        font-size: 1rem;
+        letter-spacing: 0.05em;
+        color: #5c5444;
+        border-top: 1px solid rgba(140, 115, 63, 0.4);
+        padding-top: 0.9rem;
+      }
+      .car-card .car-price {
+        font-size: clamp(1.3rem, 1.5vw, 1.7rem);
+      }
+      .car-card .btn-gold {
+        font-size: 0.95rem;
+        padding: 0.7rem 2rem;
+      }
+      #collection .container .container {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      @media (max-width: 1199px) {
+        .car-card {
+          max-width: 780px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .car-wide {
+          flex-direction: column;
+          min-height: 0;
+        }
+        .car-photo {
+          flex: none;
+          width: 100%;
+          max-width: 100%;
+          aspect-ratio: 16 / 10;
+          border-right: 0;
+          border-bottom: 3px double var(--gold-dark);
+        }
+        .car-info {
+          padding: 1.75rem 2rem;
+        }
+      }
+      @media (max-width: 575px) {
+        .navbar-brand {
+          font-size: 1rem;
+          letter-spacing: 0.15em;
+        }
+        .hero {
+          min-height: 70vh;
+        }
+        .hero-title {
+          letter-spacing: 0.12em;
+        }
+        .hero-sub {
+          letter-spacing: 0.1em;
+        }
+        .section-title {
+          font-size: 1.7rem;
+        }
+        .car-info {
+          padding: 1.25rem;
+        }
+        .car-card .card-title {
+          font-size: 1.6rem;
+        }
+        .car-desc {
+          font-size: 1.05rem;
+        }
+        .car-memory {
+          font-size: 1rem;
+        }
+        .car-specs {
+          font-size: 0.85rem;
+        }
+        .car-card .car-price {
+          font-size: 1.35rem;
+        }
+        .car-card .btn-gold {
+          width: 100%;
+        }
+      }
+      .car-year {
+        color: var(--gold-dark);
+        letter-spacing: 0.2em;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+      }
+      .car-card .card-title {
+        font-weight: 700;
+      }
+      .car-price {
+        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        color: var(--gold-dark);
+        font-weight: 600;
+      }
+      .car-engine {
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+
+      .about-section {
+        background-color: var(--charcoal-light);
+        border-top: 1px solid var(--gold-dark);
+        border-bottom: 1px solid var(--gold-dark);
+      }
+      .navbar .container,
+      .about-section .container,
+      footer .container {
+        max-width: 1700px;
+      }
+      .about-section .section-title {
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+      }
+      .about-section .gold-line {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .about-quote {
+        border-left: 2px solid var(--gold);
+        padding-left: 1.25rem;
+        font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+        line-height: 1.6;
+        font-style: italic;
+        color: var(--gold);
+      }
+      .about-text {
+        font-size: clamp(1.05rem, 1.2vw, 1.25rem);
+        line-height: 1.85;
+      }
+      .about-stats {
+        border-top: 1px solid rgba(140, 115, 63, 0.5);
+        padding-top: 1.5rem;
+      }
+      .stat-number {
+        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-size: clamp(1.3rem, 2vw, 2rem);
+        font-weight: 700;
+        color: var(--gold);
+      }
+      .stat-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #8d8573;
+      }
+
+      .modal-content {
+        background-color: var(--cream);
+        color: var(--ink);
+        border-radius: 0;
+        border: 1px solid var(--gold-dark);
+      }
+      .modal-header {
+        border-bottom: 1px solid var(--gold-dark);
+      }
+      .modal-footer {
+        border-top: 1px solid var(--gold-dark);
+      }
+      .spec-table td {
+        border-color: rgba(140, 115, 63, 0.35);
+        background-color: transparent;
+        color: var(--ink);
+      }
+      .spec-table td:first-child {
+        font-weight: 600;
+        color: var(--gold-dark);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        width: 38%;
+      }
+
+      footer {
+        background-color: #0c0c0c;
+        border-top: 1px solid var(--gold-dark);
+        color: var(--gold);
+      }
+      .footer-brand {
+        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        color: var(--gold);
+      }
+      .footer-tagline {
+        font-size: 1.1rem;
+        font-style: italic;
+        color: var(--cream);
+      }
+      .footer-links a {
+        color: var(--gold);
+        text-decoration: none;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-left: 1.8rem;
+      }
+      .footer-links a:hover {
+        color: var(--cream);
+      }
+      .footer-line {
+        height: 1px;
+        background-color: rgba(140, 115, 63, 0.5);
+        margin: 1.5rem 0 1rem;
+      }
+      .footer-copy {
+        color: #8d8573;
+        font-size: 0.8rem;
+      }
+      @media (max-width: 767px) {
+        .footer-links a {
+          margin: 0 0.8rem;
+        }
+      }
+      @media (max-width: 575px) {
+        .footer-brand {
+          font-size: 1.1rem;
+          letter-spacing: 0.15em;
+        }
+        .footer-links a {
+          margin: 0 0.5rem;
+          font-size: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#top">EMPTY PASSENGER</a>
+        <button
+          class="navbar-toggler border-secondary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon" style="filter: invert(1)"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#collection">Collection</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="container py-5">
+        <p class="hero-sub">A private collection of timeless cars</p>
+        <h1 class="hero-title">EMPTY PASSENGER</h1>
+        <div class="gold-line"></div>
+        <p class="hero-tagline mb-2">&ldquo;The seat is empty, but the memories remain.&rdquo;</p>
+        <p class="hero-sub mt-3">Some roads lead back. Some don't.</p>
+        <a href="#collection" class="btn btn-outline-cream mt-4 px-4 py-2">Enter the Collection</a>
+      </div>
+    </header>
+
+    <section class="py-5" id="collection">
+      <div class="container">
+        <div class="text-center mb-4">
+          <div class="section-label">The Garage</div>
+          <h2 class="section-title">The Collection</h2>
+          <div class="gold-line"></div>
+        </div>
+
+        <div class="container">
+          <div class="row" id="parent">
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section py-5" id="about">
+      <div class="container py-lg-4">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-5">
+            <div class="section-label">About</div>
+            <h2 class="section-title">Why EMPTY PASSENGER?</h2>
+            <div class="gold-line"></div>
+            <p class="about-quote mb-0">
+              The engines still hum. The leather still smells like summer. Only the seat is empty.
+            </p>
+          </div>
+          <div class="col-lg-7">
+            <p class="about-text">
+              Every car in this collection was built to carry two people somewhere. These six still run, still
+              shine, and still turn heads &mdash; but the passenger side stays empty.
+            </p>
+            <p class="about-text">
+              EMPTY PASSENGER is a personal collection of timeless cars, kept the way you keep a memory:
+              polished, protected, and never quite let go. It is a small tribute to the people who once sat
+              beside us, and to the roads we can still drive but can no longer share.
+            </p>
+            <div class="row g-0 text-center about-stats mt-4">
+              <div class="col-4">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Cars</div>
+              </div>
+              <div class="col-4">
+                <div class="stat-number">1954 - 1973</div>
+                <div class="stat-label">Years</div>
+              </div>
+              <div class="col-4">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Countries</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="py-4">
+      <div class="container">
+        <div class="row align-items-center gy-3">
+          <div class="col-md-7 text-center text-md-start">
+            <div class="footer-brand">EMPTY PASSENGER</div>
+            <p class="footer-tagline mb-0">Some roads lead back. Some don't.</p>
+          </div>
+          <div class="col-md-5 text-center text-md-end footer-links">
+            <a href="#top">Home</a>
+            <a href="#collection">Collection</a>
+            <a href="#about">About</a>
+          </div>
+        </div>
+        <div class="footer-line"></div>
+        <p class="footer-copy text-center mb-0">&copy; 2026 EMPTY PASSENGER &middot; A classic car collection</p>
+      </div>
+    </footer>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <div class="car-year" id="modalYear"></div>
+              <h4 class="modal-title" id="modalTitle"></h4>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <img id="modalImage" class="img-fluid" style="filter: sepia(0.35)" alt="" />
+              </div>
+              <div class="col-md-6">
+                <table class="table spec-table mb-3">
+                  <tbody id="modalSpecs"></tbody>
+                </table>
+              </div>
+            </div>
+            <p class="mt-3 mb-2" id="modalDescription"></p>
+            <p class="fst-italic mb-0" style="color: var(--gold-dark)" id="modalMemory"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-gold" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      var cars = [
+        {
+          id: 0,
+          brand: "Ford",
+          model: "Mustang Fastback",
+          year: 1967,
+          engine: "4.7L 289 cu in V8",
+          category: "American",
+          image: "images/ford-mustang-fastback-1967.jpg",
+          description: "Long hood, short deck, and a roofline that made every parking lot look slower.",
+          memory: "She always picked the radio station. Now it stays on static.",
+          price: "$55,000 - $95,000",
+          power: "225 hp (4-barrel version)",
+          transmission: "3-speed auto or 4-speed manual",
+          topSpeed: "About 115 mph",
+          note: "One of the most recognizable fastback shapes ever built",
+        },
+        {
+          id: 1,
+          brand: "Chevrolet",
+          model: "Bel Air",
+          year: 1957,
+          engine: "4.6L 283 cu in V8",
+          category: "American",
+          image: "images/chevrolet-bel-air-1957.jpg",
+          description: "Chrome, tailfins and a wide front seat made for two. The face of the golden age.",
+          memory: "The bench seat was built for two. It has been a long time since it felt that way.",
+          price: "$45,000 - $110,000",
+          power: "220 hp (up to 283 hp with fuel injection)",
+          transmission: "3-speed manual or Powerglide auto",
+          topSpeed: "About 110 mph",
+          note: "Part of the famous 1955 to 1957 Tri-Five Chevys",
+        },
+        {
+          id: 2,
+          brand: "Jaguar",
+          model: "E-Type",
+          year: 1961,
+          engine: "3.8L XK inline-six",
+          category: "British",
+          image: "images/jaguar-e-type-1961.jpg",
+          description: "Long, low and impossibly graceful. Enzo Ferrari reportedly called it the most beautiful car ever made.",
+          memory: "Too beautiful to drive alone, and yet here we are.",
+          price: "$100,000 - $250,000",
+          power: "265 hp",
+          transmission: "4-speed manual",
+          topSpeed: "About 150 mph",
+          note: "Launched in 1961 at the Geneva Motor Show",
+        },
+        {
+          id: 3,
+          brand: "Chevrolet",
+          model: "Corvette Sting Ray",
+          year: 1963,
+          engine: "5.4L 327 cu in V8",
+          category: "American",
+          image: "images/corvette-sting-ray-1963.jpg",
+          description: "Hidden headlights, sharp fender lines and a split rear window that was only made for one year.",
+          memory: "The split window only lasted a year. Some things are not meant to stay.",
+          price: "$100,000 - $300,000",
+          power: "250 to 360 hp depending on engine option",
+          transmission: "3-speed or 4-speed manual, Powerglide auto",
+          topSpeed: "About 140 mph",
+          note: "The 1963 split-window coupe is the most sought-after version",
+        },
+        {
+          id: 4,
+          brand: "Porsche",
+          model: "911 Carrera RS",
+          year: 1973,
+          engine: "2.7L air-cooled flat-six",
+          category: "German",
+          image: "images/porsche-911-carrera-rs-1973.jpg",
+          description: "A road-going race car with the famous ducktail spoiler. Light, loud and honest.",
+          memory: "It was fast enough to outrun almost anything. Almost.",
+          price: "$900,000 - $1,600,000",
+          power: "210 hp",
+          transmission: "5-speed manual",
+          topSpeed: "About 150 mph",
+          note: "Roughly 1,590 built, made to meet racing homologation rules",
+        },
+        {
+          id: 5,
+          brand: "Mercedes-Benz",
+          model: "300SL Gullwing",
+          year: 1954,
+          engine: "3.0L fuel-injected inline-six",
+          category: "German",
+          image: "images/mercedes-300sl-gullwing-1954.jpg",
+          description: "The doors lift like wings. The first production car with fuel injection, and a legend from day one.",
+          memory: "The doors open upward, as if the whole car is still hoping someone will climb in.",
+          price: "$1,200,000 - $2,000,000",
+          power: "215 hp",
+          transmission: "4-speed manual",
+          topSpeed: "Up to about 155 mph",
+          note: "About 1,400 coupes built between 1954 and 1957",
+        },
+      ];
+
+      var placeholderImage =
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500">' +
+            '<rect width="100%" height="100%" fill="#1e1e1e"/>' +
+            '<text x="50%" y="48%" fill="#b89b5e" font-family="Georgia, serif" font-size="34" text-anchor="middle" letter-spacing="8">EMPTY PASSENGER</text>' +
+            '<text x="50%" y="58%" fill="#8d8573" font-family="Georgia, serif" font-size="20" text-anchor="middle" font-style="italic">photo coming soon</text>' +
+            "</svg>"
+        );
+
+      var elParent = document.getElementById("parent");
+
+      function displayCars(list) {
+        elParent.innerHTML = "";
+
+        for (var i = 0; i < list.length; i++) {
+          var car = list[i];
+
+          elParent.innerHTML += `<div class="col-12 mb-4">
+            <div class="card car-card">
+              <div class="car-wide">
+                <div class="car-photo">
+                  <img src="${car.image}" alt="${car.year} ${car.brand} ${car.model}" onerror="this.onerror=null; this.src=placeholderImage;" />
+                </div>
+                <div class="car-info">
+                  <div class="car-year">${car.year} &middot; ${car.category}</div>
+                  <h5 class="card-title mt-1">${car.brand} ${car.model}</h5>
+                  <div class="car-engine mb-3">${car.engine}</div>
+                  <p class="car-desc mb-2">${car.description}</p>
+                  <p class="car-memory mb-3">&ldquo;${car.memory}&rdquo;</p>
+                  <div class="car-specs mb-3">${car.power} &middot; ${car.transmission} &middot; ${car.topSpeed}</div>
+                  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                    <div class="car-price">Est. ${car.price}</div>
+                    <button class="btn btn-gold" onclick="showDetails(${car.id})">View Details</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        }
+
+      }
+
+      function showDetails(carId) {
+        var car = null;
+        for (var i = 0; i < cars.length; i++) {
+          if (cars[i].id == carId) {
+            car = cars[i];
+          }
+        }
+
+        document.getElementById("modalYear").innerHTML = car.year + " &middot; " + car.category;
+        document.getElementById("modalTitle").innerHTML = car.brand + " " + car.model;
+
+        var elImage = document.getElementById("modalImage");
+        elImage.onerror = function () {
+          elImage.onerror = null;
+          elImage.src = placeholderImage;
+        };
+        elImage.src = car.image;
+        elImage.alt = car.year + " " + car.brand + " " + car.model;
+
+        document.getElementById("modalSpecs").innerHTML = `
+          <tr><td>Brand</td><td>${car.brand}</td></tr>
+          <tr><td>Model</td><td>${car.model}</td></tr>
+          <tr><td>Year</td><td>${car.year}</td></tr>
+          <tr><td>Engine</td><td>${car.engine}</td></tr>
+          <tr><td>Power</td><td>${car.power}</td></tr>
+          <tr><td>Gearbox</td><td>${car.transmission}</td></tr>
+          <tr><td>Top speed</td><td>${car.topSpeed}</td></tr>
+          <tr><td>Good to know</td><td>${car.note}</td></tr>
+          <tr><td>Est. price</td><td>${car.price}</td></tr>`;
+
+        document.getElementById("modalDescription").innerHTML = car.description;
+        document.getElementById("modalMemory").innerHTML = "&ldquo;" + car.memory + "&rdquo;";
+
+        var modal = new bootstrap.Modal(document.getElementById("detailsModal"));
+        modal.show();
+      }
+
+      displayCars(cars);
+    </script>
+  </body>
+</html>
