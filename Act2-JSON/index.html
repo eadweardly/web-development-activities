@@ -58,6 +58,16 @@
       .nav-link:hover {
         color: var(--gold) !important;
       }
+      .navbar-toggler,
+      .navbar-collapse {
+        transition: opacity 0.3s ease;
+      }
+      .nav-away .navbar-toggler,
+      .nav-away .navbar-collapse {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
 
       .hero {
         min-height: calc(100vh - var(--nav-h));
@@ -307,6 +317,9 @@
       }
 
       .about-section {
+        display: flex;
+        min-height: calc(100vh - var(--nav-h));
+        min-height: calc(100svh - var(--nav-h));
         background-color: var(--charcoal-light);
         border-top: 1px solid var(--gold-dark);
         border-bottom: 1px solid var(--gold-dark);
@@ -336,24 +349,33 @@
         line-height: 1.85;
       }
       .about-stats {
-        max-width: 900px;
-        margin-top: clamp(2.5rem, 5vw, 4.5rem);
-        padding-top: clamp(1.5rem, 3vw, 2.5rem);
-        border-top: 1px solid rgba(140, 115, 63, 0.5);
+        display: flex;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(140, 115, 63, 0.4);
+      }
+      .about-stats > div {
+        padding: 0 1.1rem;
+      }
+      .about-stats > div:first-child {
+        padding-left: 0;
+      }
+      .about-stats > div:last-child {
+        padding-right: 0;
       }
       .about-stats > div + div {
         border-left: 1px solid rgba(140, 115, 63, 0.35);
       }
       .stat-number {
         font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
-        font-size: clamp(1.15rem, 3.2vw, 2.6rem);
+        font-size: clamp(1rem, 1.5vw, 1.4rem);
         font-weight: 700;
         white-space: nowrap;
         color: var(--gold);
       }
       .stat-label {
-        font-size: 0.75rem;
-        letter-spacing: 0.2em;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
         color: #8d8573;
       }
@@ -467,7 +489,7 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-md sticky-top">
+    <nav class="navbar navbar-expand-md sticky-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand" href="#top">EMPTY PASSENGER</a>
         <button
@@ -483,7 +505,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navMenu">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#collection">Collection</a></li>
             <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           </ul>
         </div>
@@ -518,8 +539,8 @@
     </section>
 
     <section class="about-section py-5" id="about">
-      <div class="container py-lg-4">
-        <div class="row g-4 align-items-center">
+      <div class="container d-flex flex-column">
+        <div class="row g-4 align-items-center flex-grow-1">
           <div class="col-lg-5">
             <div class="section-label">About</div>
             <h2 class="section-title">Why EMPTY PASSENGER?</h2>
@@ -540,16 +561,16 @@
             </p>
           </div>
         </div>
-        <div class="row g-0 text-center about-stats mx-auto">
-          <div class="col-4">
+        <div class="about-stats text-center align-self-end">
+          <div>
             <div class="stat-number">6</div>
             <div class="stat-label">Cars</div>
           </div>
-          <div class="col-4">
+          <div>
             <div class="stat-number">1954 - 1973</div>
             <div class="stat-label">Years</div>
           </div>
-          <div class="col-4">
+          <div>
             <div class="stat-number">3</div>
             <div class="stat-label">Countries</div>
           </div>
@@ -793,6 +814,21 @@
       }
 
       displayCars(cars);
+
+      var elNav = document.getElementById("mainNav");
+      var elHero = document.getElementById("top");
+
+      function updateNav() {
+        var heroBottom = elHero.getBoundingClientRect().bottom;
+        if (heroBottom <= 80) {
+          elNav.classList.add("nav-away");
+        } else {
+          elNav.classList.remove("nav-away");
+        }
+      }
+
+      window.addEventListener("scroll", updateNav);
+      updateNav();
     </script>
   </body>
 </html>
