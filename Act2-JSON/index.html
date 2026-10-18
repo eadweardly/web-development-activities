@@ -336,13 +336,19 @@
         line-height: 1.85;
       }
       .about-stats {
+        max-width: 900px;
+        margin-top: clamp(2.5rem, 5vw, 4.5rem);
+        padding-top: clamp(1.5rem, 3vw, 2.5rem);
         border-top: 1px solid rgba(140, 115, 63, 0.5);
-        padding-top: 1.5rem;
+      }
+      .about-stats > div + div {
+        border-left: 1px solid rgba(140, 115, 63, 0.35);
       }
       .stat-number {
         font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
-        font-size: clamp(1.3rem, 2vw, 2rem);
+        font-size: clamp(1.15rem, 3.2vw, 2.6rem);
         font-weight: 700;
+        white-space: nowrap;
         color: var(--gold);
       }
       .stat-label {
@@ -532,20 +538,20 @@
               polished, protected, and never quite let go. It is a small tribute to the people who once sat
               beside us, and to the roads we can still drive but can no longer share.
             </p>
-            <div class="row g-0 text-center about-stats mt-4">
-              <div class="col-4">
-                <div class="stat-number">6</div>
-                <div class="stat-label">Cars</div>
-              </div>
-              <div class="col-4">
-                <div class="stat-number">1954 - 1973</div>
-                <div class="stat-label">Years</div>
-              </div>
-              <div class="col-4">
-                <div class="stat-number">3</div>
-                <div class="stat-label">Countries</div>
-              </div>
-            </div>
+          </div>
+        </div>
+        <div class="row g-0 text-center about-stats mx-auto">
+          <div class="col-4">
+            <div class="stat-number">6</div>
+            <div class="stat-label">Cars</div>
+          </div>
+          <div class="col-4">
+            <div class="stat-number">1954 - 1973</div>
+            <div class="stat-label">Years</div>
+          </div>
+          <div class="col-4">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Countries</div>
           </div>
         </div>
       </div>
