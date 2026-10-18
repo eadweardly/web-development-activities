@@ -22,6 +22,11 @@
         --gold-dark: #8c733f;
         --cream: #efe6d2;
         --ink: #2a2620;
+        --nav-h: 3.75rem;
+      }
+
+      html {
+        scroll-padding-top: var(--nav-h);
       }
 
       body {
@@ -35,6 +40,7 @@
       }
 
       .navbar {
+        min-height: var(--nav-h);
         background-color: #0c0c0c;
         border-bottom: 1px solid var(--gold-dark);
       }
@@ -54,7 +60,8 @@
       }
 
       .hero {
-        min-height: 85vh;
+        min-height: calc(100vh - var(--nav-h));
+        min-height: calc(100svh - var(--nav-h));
         display: flex;
         align-items: center;
         text-align: center;
@@ -67,7 +74,8 @@
         border-bottom: 1px solid var(--gold-dark);
       }
       .hero-title {
-        font-size: clamp(1.8rem, 8vw, 5.5rem);
+        font-size: clamp(2.2rem, 6.5vw, 4.5rem);
+        white-space: nowrap;
         letter-spacing: 0.25em;
         color: var(--gold);
         font-weight: 700;
@@ -247,10 +255,8 @@
           font-size: 1rem;
           letter-spacing: 0.15em;
         }
-        .hero {
-          min-height: 70vh;
-        }
         .hero-title {
+          font-size: clamp(1.2rem, 7.6vw, 2.9rem);
           letter-spacing: 0.12em;
         }
         .hero-sub {
@@ -422,6 +428,32 @@
         .footer-links a {
           margin: 0 0.5rem;
           font-size: 0.75rem;
+        }
+      }
+      @media (max-height: 520px) {
+        .hero .container {
+          padding-top: 1.25rem !important;
+          padding-bottom: 1.25rem !important;
+        }
+        .hero .btn {
+          margin-top: 0.75rem !important;
+          padding-top: 0.35rem !important;
+          padding-bottom: 0.35rem !important;
+        }
+        .hero p {
+          margin-bottom: 0.25rem;
+        }
+        .hero .hero-sub.mt-3 {
+          margin-top: 0.3rem !important;
+        }
+        .hero .hero-title {
+          font-size: clamp(1.5rem, 8vh, 2.6rem);
+        }
+        .hero .hero-tagline {
+          font-size: 1rem;
+        }
+        .hero .gold-line {
+          margin: 0.5rem auto;
         }
       }
     </style>
