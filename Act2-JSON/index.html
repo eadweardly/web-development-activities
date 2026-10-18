@@ -16,47 +16,85 @@
     <style>
 
       :root {
-        --charcoal: #141414;
-        --charcoal-light: #1e1e1e;
-        --gold: #b89b5e;
-        --gold-dark: #8c733f;
-        --cream: #efe6d2;
-        --ink: #2a2620;
+        --charcoal: #12110f;
+        --charcoal-light: #1b1915;
+        --gold: #b39a62;
+        --gold-dark: #85703f;
+        --cream: #e9e0cb;
+        --ivory: #f3ebd8;
+        --paper: #e8dec6;
+        --ink: #2a241b;
+        --muted: #8a8171;
         --nav-h: 3.75rem;
+        --display: "Bodoni MT", "Didot", "Playfair Display", "Hoefler Text", "Baskerville Old Face", Baskerville,
+          "Palatino Linotype", Georgia, serif;
+        --body: "Hoefler Text", Baskerville, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .9 0 0 0 0 .8 0 0 0 1.2 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .18 0 0 0 0 .08 0 0 0 .55 -.14'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       }
 
       html {
         scroll-padding-top: var(--nav-h);
+        scrollbar-color: #3b352a #0d0c0a;
+      }
+
+      ::selection {
+        background-color: var(--gold-dark);
+        color: var(--ivory);
       }
 
       body {
         background-color: var(--charcoal);
         color: var(--cream);
-        font-family: Georgia, "Times New Roman", serif;
+        font-family: var(--body);
+        font-size: 1.05rem;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 9998;
+        pointer-events: none;
+        background-image: var(--grain-light);
+        opacity: 0.08;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 9997;
+        pointer-events: none;
+        background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.4) 100%);
       }
 
       h1, h2, h3, h4, h5, .navbar-brand {
-        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-family: var(--display);
       }
 
       .navbar {
         min-height: var(--nav-h);
-        background-color: #0c0c0c;
-        border-bottom: 1px solid var(--gold-dark);
+        background-color: #0b0a08;
+        border-bottom: 3px double var(--gold-dark);
       }
       .navbar-brand {
         color: var(--gold) !important;
-        letter-spacing: 0.3em;
+        letter-spacing: 0.38em;
+        font-size: 1.05rem;
         font-weight: 700;
       }
       .nav-link {
         color: var(--cream) !important;
-        letter-spacing: 0.15em;
-        font-size: 0.85rem;
+        letter-spacing: 0.28em;
+        font-size: 0.75rem;
         text-transform: uppercase;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid transparent;
+        transition: color 0.3s ease, border-color 0.3s ease;
       }
       .nav-link:hover {
         color: var(--gold) !important;
+        border-bottom-color: var(--gold-dark);
       }
       .navbar-toggler,
       .navbar-collapse {
@@ -70,103 +108,162 @@
       }
 
       .hero {
+        position: relative;
         min-height: calc(100vh - var(--nav-h));
         min-height: calc(100svh - var(--nav-h));
         display: flex;
         align-items: center;
         text-align: center;
-
-        background-color: #0c0c0c;
-        background-image: linear-gradient(rgba(10, 10, 10, 0.72), rgba(10, 10, 10, 0.92)),
-          url("images/chevrolet-bel-air-1957.jpg");
+        background-color: #0b0a08;
+        background-image: linear-gradient(rgba(125, 90, 40, 0.16), rgba(125, 90, 40, 0.16)),
+          radial-gradient(ellipse at center, rgba(10, 9, 7, 0.2) 0%, rgba(10, 9, 7, 0.8) 100%),
+          linear-gradient(rgba(12, 11, 9, 0.5), rgba(12, 11, 9, 0.88)), url("images/chevrolet-bel-air-1957.jpg");
         background-size: cover;
         background-position: center;
-        border-bottom: 1px solid var(--gold-dark);
+        border-bottom: 3px double var(--gold-dark);
+      }
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+      }
+      .hero::before {
+        inset: clamp(0.5rem, 1.6vw, 1.4rem);
+        border: 1px solid rgba(179, 154, 98, 0.65);
+      }
+      .hero::after {
+        inset: calc(clamp(0.5rem, 1.6vw, 1.4rem) + 6px);
+        border: 1px solid rgba(179, 154, 98, 0.28);
+      }
+      .hero .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1700px;
       }
       .hero-title {
-        font-size: clamp(2.2rem, 6.5vw, 4.5rem);
+        display: inline-block;
+        font-size: clamp(2.2rem, 6.2vw, 5.5rem);
         white-space: nowrap;
-        letter-spacing: 0.25em;
-        color: var(--gold);
+        letter-spacing: 0.16em;
+        line-height: 1.1;
+        padding: 0.14em 0.25em 0.1em 0.4em;
+        margin-bottom: 0;
+        border-top: 1px solid var(--gold);
+        border-bottom: 1px solid var(--gold);
+        color: var(--ivory);
         font-weight: 700;
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
       }
       .hero-tagline {
-        font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+        font-family: var(--display);
+        font-size: clamp(1.15rem, 2.5vw, 1.8rem);
         font-style: italic;
+        line-height: 1.4;
         color: var(--cream);
       }
       .hero-sub {
-        letter-spacing: 0.2em;
+        letter-spacing: 0.32em;
         text-transform: uppercase;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: var(--gold);
       }
-      .gold-line {
-        width: 90px;
+      .hero .container > .hero-sub:first-child {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+      .hero .container > .hero-sub:first-child::before,
+      .hero .container > .hero-sub:first-child::after {
+        content: "";
+        flex: none;
+        width: clamp(1rem, 6vw, 4.5rem);
         height: 1px;
         background-color: var(--gold);
+      }
+      .gold-line {
+        width: 100px;
+        height: 5px;
+        border-top: 1px solid var(--gold);
+        border-bottom: 1px solid var(--gold);
         margin: 1.5rem auto;
       }
 
       .section-label {
         color: var(--gold);
-        letter-spacing: 0.3em;
+        letter-spacing: 0.4em;
         text-transform: uppercase;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
       }
       .section-title {
-        font-size: 2.2rem;
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        color: var(--ivory);
       }
-
-      .form-control, .form-select {
-        background-color: var(--charcoal-light);
-        border: 1px solid var(--gold-dark);
-        color: var(--cream);
-        border-radius: 0;
+      #collection .section-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
       }
-      .form-control:focus, .form-select:focus {
-        background-color: var(--charcoal-light);
-        color: var(--cream);
-        border-color: var(--gold);
-        box-shadow: 0 0 0 0.2rem rgba(184, 155, 94, 0.25);
-      }
-      .form-control::placeholder {
-        color: #8d8573;
+      #collection .section-label::before,
+      #collection .section-label::after {
+        content: "";
+        width: clamp(1.5rem, 8vw, 5rem);
+        height: 1px;
+        background-color: var(--gold-dark);
       }
 
       .btn-gold {
         background-color: transparent;
-        color: var(--gold-dark);
+        color: var(--ink);
         border: 1px solid var(--gold-dark);
         border-radius: 0;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.25em;
         text-transform: uppercase;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
       }
-      .btn-gold:hover {
-        background-color: var(--gold-dark);
-        color: var(--cream);
+      .btn-gold:hover,
+      .btn-gold:focus-visible {
+        background-color: var(--ink);
+        border-color: var(--ink);
+        color: var(--ivory);
       }
       .btn-outline-cream {
         background-color: transparent;
         color: var(--cream);
-        border: 1px solid var(--gold-dark);
+        border: 1px solid var(--gold);
         border-radius: 0;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.3em;
         text-transform: uppercase;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       .btn-outline-cream:hover {
-        background-color: var(--gold-dark);
-        color: var(--cream);
+        background-color: var(--gold);
+        border-color: var(--gold);
+        color: var(--charcoal);
       }
 
+      #parent {
+        counter-reset: plate;
+      }
       .car-card {
-        background-color: var(--cream);
+        counter-increment: plate;
+        background-color: var(--ivory);
+        background-image: var(--grain-dark),
+          radial-gradient(ellipse at 50% 45%, rgba(150, 110, 50, 0) 55%, rgba(150, 110, 50, 0.2) 100%);
         color: var(--ink);
         border: 1px solid var(--gold-dark);
         border-radius: 0;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 0 5px #0b0a08, 0 0 0 6px rgba(133, 112, 63, 0.55), 0 14px 30px rgba(0, 0, 0, 0.6);
+        transition: border-color 0.4s ease;
+      }
+      .car-card:hover {
+        border-color: var(--ink);
       }
       #collection .container {
         max-width: 1700px;
@@ -181,57 +278,91 @@
         flex: 0 0 54%;
         max-width: 860px;
         border-right: 3px double var(--gold-dark);
-        background-color: #0c0c0c;
+        background-color: var(--paper);
+        background-image: var(--grain-dark);
       }
       .car-photo img {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        top: clamp(0.75rem, 1.4vw, 1.4rem);
+        left: clamp(0.75rem, 1.4vw, 1.4rem);
+        width: calc(100% - 2 * clamp(0.75rem, 1.4vw, 1.4rem));
+        height: calc(100% - 2 * clamp(0.75rem, 1.4vw, 1.4rem));
         object-fit: cover;
         object-position: center;
         display: block;
-        filter: sepia(0.35) contrast(1.05);
+        border: 7px solid #f7f1e1;
+        box-shadow: 0 3px 12px rgba(40, 28, 10, 0.4);
+        filter: sepia(0.4) contrast(1.05) saturate(0.8) brightness(0.96);
+        transition: filter 0.6s ease;
+      }
+      .car-photo::after {
+        content: "";
+        position: absolute;
+        top: clamp(0.75rem, 1.4vw, 1.4rem);
+        left: clamp(0.75rem, 1.4vw, 1.4rem);
+        right: clamp(0.75rem, 1.4vw, 1.4rem);
+        bottom: clamp(0.75rem, 1.4vw, 1.4rem);
+        border: 7px solid transparent;
+        box-shadow: inset 0 0 70px rgba(35, 22, 6, 0.4);
+        pointer-events: none;
+      }
+      .car-card:hover .car-photo img {
+        filter: sepia(0.22) contrast(1.05) saturate(0.9) brightness(1);
       }
       .car-info {
         flex: 1 1 0;
-        padding: 2rem clamp(1.5rem, 2.5vw, 2.75rem);
+        padding: 1.75rem clamp(1.5rem, 2.5vw, 2.75rem) 2rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
+      .car-info::before {
+        content: "No. " counter(plate, decimal-leading-zero);
+        display: block;
+        font-size: 0.72rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--gold-dark);
+        padding-bottom: 0.55rem;
+        margin-bottom: 1.1rem;
+        border-bottom: 1px solid rgba(133, 112, 63, 0.5);
+      }
       .car-card .car-year {
-        font-size: 1rem;
+        font-size: 0.85rem;
       }
       .car-card .card-title {
-        font-size: clamp(1.8rem, 2.2vw, 2.5rem);
-        line-height: 1.15;
+        font-family: var(--display);
+        font-size: clamp(2rem, 2.6vw, 2.9rem);
+        line-height: 1.08;
+        letter-spacing: 0.01em;
       }
       .car-card .car-engine {
         font-size: clamp(1rem, 1.1vw, 1.2rem);
       }
       .car-desc {
         font-size: clamp(1.05rem, 1.2vw, 1.25rem);
-        line-height: 1.6;
+        line-height: 1.65;
       }
       .car-memory {
         font-size: clamp(1rem, 1.1vw, 1.15rem);
         font-style: italic;
         color: var(--gold-dark);
+        padding-left: 1rem;
+        border-left: 1px solid var(--gold-dark);
       }
       .car-specs {
-        font-size: 1rem;
-        letter-spacing: 0.05em;
+        font-size: 0.82rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
         color: #5c5444;
-        border-top: 1px solid rgba(140, 115, 63, 0.4);
+        border-top: 3px double rgba(133, 112, 63, 0.55);
         padding-top: 0.9rem;
       }
       .car-card .car-price {
         font-size: clamp(1.3rem, 1.5vw, 1.7rem);
       }
       .car-card .btn-gold {
-        font-size: 0.95rem;
+        font-size: 0.78rem;
         padding: 0.7rem 2rem;
       }
       #collection .container .container {
@@ -257,29 +388,36 @@
           border-bottom: 3px double var(--gold-dark);
         }
         .car-info {
-          padding: 1.75rem 2rem;
+          padding: 1.5rem 2rem 1.75rem;
         }
       }
       @media (max-width: 575px) {
         .navbar-brand {
-          font-size: 1rem;
-          letter-spacing: 0.15em;
+          font-size: 0.9rem;
+          letter-spacing: 0.22em;
         }
         .hero-title {
-          font-size: clamp(1.2rem, 7.6vw, 2.9rem);
-          letter-spacing: 0.12em;
+          font-size: clamp(1.2rem, 6.6vw, 2.9rem);
+          letter-spacing: 0.1em;
+          padding: 0.14em 0.1em 0.1em 0.2em;
         }
         .hero-sub {
-          letter-spacing: 0.1em;
+          letter-spacing: 0.18em;
         }
         .section-title {
-          font-size: 1.7rem;
+          font-size: 1.8rem;
+        }
+        .car-card {
+          box-shadow: 0 0 0 3px #0b0a08, 0 0 0 4px rgba(133, 112, 63, 0.55), 0 10px 22px rgba(0, 0, 0, 0.6);
+        }
+        .car-photo img {
+          border-width: 5px;
         }
         .car-info {
-          padding: 1.25rem;
+          padding: 1.1rem 1.25rem 1.4rem;
         }
         .car-card .card-title {
-          font-size: 1.6rem;
+          font-size: 1.75rem;
         }
         .car-desc {
           font-size: 1.05rem;
@@ -288,7 +426,8 @@
           font-size: 1rem;
         }
         .car-specs {
-          font-size: 0.85rem;
+          font-size: 0.72rem;
+          letter-spacing: 0.06em;
         }
         .car-card .car-price {
           font-size: 1.35rem;
@@ -297,9 +436,15 @@
           width: 100%;
         }
       }
+      @media (max-width: 400px) {
+        .hero .container > .hero-sub:first-child::before,
+        .hero .container > .hero-sub:first-child::after {
+          display: none;
+        }
+      }
       .car-year {
         color: var(--gold-dark);
-        letter-spacing: 0.2em;
+        letter-spacing: 0.28em;
         font-size: 0.8rem;
         text-transform: uppercase;
       }
@@ -307,9 +452,9 @@
         font-weight: 700;
       }
       .car-price {
-        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-family: var(--display);
         color: var(--gold-dark);
-        font-weight: 600;
+        font-weight: 700;
       }
       .car-engine {
         font-size: 0.85rem;
@@ -322,7 +467,7 @@
         min-height: calc(100svh - var(--nav-h));
         background-color: var(--charcoal-light);
         border-top: 1px solid var(--gold-dark);
-        border-bottom: 1px solid var(--gold-dark);
+        border-bottom: 3px double var(--gold-dark);
       }
       .navbar .container,
       .about-section .container,
@@ -330,15 +475,17 @@
         max-width: 1700px;
       }
       .about-section .section-title {
-        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        font-size: clamp(1.9rem, 3.2vw, 3rem);
       }
       .about-section .gold-line {
         margin-left: 0;
         margin-right: 0;
       }
       .about-quote {
-        border-left: 2px solid var(--gold);
-        padding-left: 1.25rem;
+        border-top: 1px solid var(--gold-dark);
+        border-bottom: 1px solid var(--gold-dark);
+        padding: 1.1rem 0;
+        font-family: var(--display);
         font-size: clamp(1.2rem, 1.8vw, 1.6rem);
         line-height: 1.6;
         font-style: italic;
@@ -346,13 +493,22 @@
       }
       .about-text {
         font-size: clamp(1.05rem, 1.2vw, 1.25rem);
-        line-height: 1.85;
+        line-height: 1.9;
+      }
+      .about-text:first-child::first-letter {
+        float: left;
+        font-family: var(--display);
+        font-size: 4.2em;
+        line-height: 0.8;
+        font-weight: 700;
+        padding: 0.06em 0.1em 0 0;
+        color: var(--gold);
       }
       .about-stats {
         display: flex;
         margin-top: 2rem;
         padding-top: 1rem;
-        border-top: 1px solid rgba(140, 115, 63, 0.4);
+        border-top: 3px double rgba(140, 115, 63, 0.5);
       }
       .about-stats > div {
         padding: 0 1.1rem;
@@ -367,30 +523,40 @@
         border-left: 1px solid rgba(140, 115, 63, 0.35);
       }
       .stat-number {
-        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-family: var(--display);
         font-size: clamp(1rem, 1.5vw, 1.4rem);
         font-weight: 700;
         white-space: nowrap;
         color: var(--gold);
       }
       .stat-label {
-        font-size: 0.65rem;
-        letter-spacing: 0.18em;
+        font-size: 0.62rem;
+        letter-spacing: 0.25em;
         text-transform: uppercase;
-        color: #8d8573;
+        color: var(--muted);
       }
 
       .modal-content {
-        background-color: var(--cream);
+        background-color: var(--ivory);
+        background-image: var(--grain-dark);
         color: var(--ink);
         border-radius: 0;
         border: 1px solid var(--gold-dark);
+        box-shadow: inset 0 0 0 6px var(--ivory), inset 0 0 0 7px rgba(133, 112, 63, 0.6);
       }
       .modal-header {
-        border-bottom: 1px solid var(--gold-dark);
+        border-bottom: 3px double var(--gold-dark);
+      }
+      .modal-title {
+        font-family: var(--display);
+        font-weight: 700;
       }
       .modal-footer {
-        border-top: 1px solid var(--gold-dark);
+        border-top: 3px double var(--gold-dark);
+      }
+      #modalImage {
+        border: 6px solid #f7f1e1;
+        box-shadow: 0 3px 10px rgba(40, 28, 10, 0.4);
       }
       .spec-table td {
         border-color: rgba(140, 115, 63, 0.35);
@@ -400,25 +566,26 @@
       .spec-table td:first-child {
         font-weight: 600;
         color: var(--gold-dark);
-        letter-spacing: 0.1em;
+        letter-spacing: 0.18em;
         text-transform: uppercase;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         width: 38%;
       }
 
       footer {
-        background-color: #0c0c0c;
-        border-top: 1px solid var(--gold-dark);
+        background-color: #0b0a08;
+        border-top: 3px double var(--gold-dark);
         color: var(--gold);
       }
       .footer-brand {
-        font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
+        font-family: var(--display);
         font-size: 1.3rem;
         font-weight: 700;
-        letter-spacing: 0.25em;
+        letter-spacing: 0.35em;
         color: var(--gold);
       }
       .footer-tagline {
+        font-family: var(--display);
         font-size: 1.1rem;
         font-style: italic;
         color: var(--cream);
@@ -426,22 +593,29 @@
       .footer-links a {
         color: var(--gold);
         text-decoration: none;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
-        font-size: 0.8rem;
+        font-size: 0.72rem;
         margin-left: 1.8rem;
+        padding-bottom: 0.2rem;
+        border-bottom: 1px solid transparent;
+        transition: color 0.3s ease, border-color 0.3s ease;
       }
       .footer-links a:hover {
         color: var(--cream);
+        border-bottom-color: var(--gold-dark);
       }
       .footer-line {
-        height: 1px;
-        background-color: rgba(140, 115, 63, 0.5);
+        height: 5px;
+        border-top: 1px solid rgba(140, 115, 63, 0.55);
+        border-bottom: 1px solid rgba(140, 115, 63, 0.55);
         margin: 1.5rem 0 1rem;
       }
       .footer-copy {
-        color: #8d8573;
-        font-size: 0.8rem;
+        color: var(--muted);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
       }
       @media (max-width: 767px) {
         .footer-links a {
@@ -451,11 +625,16 @@
       @media (max-width: 575px) {
         .footer-brand {
           font-size: 1.1rem;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.22em;
         }
         .footer-links a {
           margin: 0 0.5rem;
-          font-size: 0.75rem;
+          font-size: 0.68rem;
+          letter-spacing: 0.18em;
+        }
+        .footer-copy {
+          font-size: 0.65rem;
+          letter-spacing: 0.08em;
         }
       }
       @media (max-height: 520px) {
@@ -482,6 +661,11 @@
         }
         .hero .gold-line {
           margin: 0.5rem auto;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
         }
       }
     </style>
