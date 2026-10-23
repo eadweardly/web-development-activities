@@ -194,3 +194,36 @@ function updateNav() {
 window.addEventListener("scroll", updateNav);
 updateNav();
     
+
+var elHtml = document.documentElement;
+var elThemeBtn = document.getElementById("themeToggle");
+
+function setTheme(theme) {
+  elHtml.setAttribute("data-theme", theme);
+
+  if (theme == "light") {
+    elThemeBtn.innerHTML = "Dark";
+  } else {
+    elThemeBtn.innerHTML = "Light";
+  }
+
+  try {
+    localStorage.setItem("theme", theme);
+  } catch (e) {}
+}
+
+function toggleTheme() {
+  if (elHtml.getAttribute("data-theme") == "light") {
+    setTheme("dark");
+  } else {
+    setTheme("light");
+  }
+}
+
+elThemeBtn.addEventListener("click", toggleTheme);
+
+var savedTheme = "dark";
+try {
+  savedTheme = localStorage.getItem("theme") || "dark";
+} catch (e) {}
+setTheme(savedTheme);

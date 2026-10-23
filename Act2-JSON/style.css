@@ -16,9 +16,56 @@
   --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .25 0 0 0 0 .18 0 0 0 0 .08 0 0 0 .55 -.14'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+:root {
+  color-scheme: dark;
+  --text: #e9e0cb;
+  --heading: #f3ebd8;
+  --bar-bg: #0b0a08;
+  --ring: #0b0a08;
+  --card-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+  --grain-top: var(--grain-light);
+  --grain-opacity: 0.08;
+  --vignette: rgba(0, 0, 0, 0.4);
+  --hero-tint: rgba(125, 90, 40, 0.16);
+  --hero-radial-a: rgba(10, 9, 7, 0.2);
+  --hero-radial-b: rgba(10, 9, 7, 0.8);
+  --hero-linear-a: rgba(12, 11, 9, 0.5);
+  --hero-linear-b: rgba(12, 11, 9, 0.88);
+  --hero-glow: rgba(0, 0, 0, 0.6);
+  --toggler-filter: invert(1);
+  --scroll-thumb: #3b352a;
+  --scroll-track: #0d0c0a;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --charcoal: #ece3cd;
+  --charcoal-light: #e2d7bb;
+  --gold: #6b5726;
+  --gold-dark: #7a6430;
+  --muted: #6b6252;
+  --text: #2a241b;
+  --heading: #1a150d;
+  --bar-bg: #ddd1b3;
+  --ring: #ece3cd;
+  --card-shadow: 0 10px 22px rgba(70, 50, 20, 0.28);
+  --grain-top: var(--grain-dark);
+  --grain-opacity: 0.7;
+  --vignette: rgba(110, 80, 35, 0.24);
+  --hero-tint: rgba(125, 90, 40, 0.1);
+  --hero-radial-a: rgba(236, 227, 205, 0.3);
+  --hero-radial-b: rgba(236, 227, 205, 0.85);
+  --hero-linear-a: rgba(236, 227, 205, 0.55);
+  --hero-linear-b: rgba(236, 227, 205, 0.9);
+  --hero-glow: rgba(236, 227, 205, 0.85);
+  --toggler-filter: none;
+  --scroll-thumb: #b9a97f;
+  --scroll-track: #e2d7bb;
+}
+
 html {
   scroll-padding-top: var(--nav-h);
-  scrollbar-color: #3b352a #0d0c0a;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
 }
 
 ::selection {
@@ -28,8 +75,9 @@ html {
 
 body {
   background-color: var(--charcoal);
-  color: var(--cream);
+  color: var(--text);
   font-family: var(--body);
+  transition: background-color 0.4s ease, color 0.4s ease;
   font-size: 1.05rem;
 }
 
@@ -39,8 +87,8 @@ body::before {
   inset: 0;
   z-index: 9998;
   pointer-events: none;
-  background-image: var(--grain-light);
-  opacity: 0.08;
+  background-image: var(--grain-top);
+  opacity: var(--grain-opacity);
 }
 body::after {
   content: "";
@@ -48,7 +96,7 @@ body::after {
   inset: 0;
   z-index: 9997;
   pointer-events: none;
-  background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.4) 100%);
+  background-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, var(--vignette) 100%);
 }
 
 h1, h2, h3, h4, h5, .navbar-brand {
@@ -57,17 +105,18 @@ h1, h2, h3, h4, h5, .navbar-brand {
 
 .navbar {
   min-height: var(--nav-h);
-  background-color: #0b0a08;
+  background-color: var(--bar-bg);
   border-bottom: 3px double var(--gold-dark);
 }
 .navbar-brand {
   color: var(--gold) !important;
-  letter-spacing: 0.38em;
-  font-size: 1.05rem;
+  letter-spacing: clamp(0.12em, 0.8vw, 0.38em);
+  font-size: clamp(0.75rem, 3.4vw, 1.05rem);
+  margin-right: 0.5rem;
   font-weight: 700;
 }
 .nav-link {
-  color: var(--cream) !important;
+  color: var(--text) !important;
   letter-spacing: 0.28em;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -97,10 +146,10 @@ h1, h2, h3, h4, h5, .navbar-brand {
   display: flex;
   align-items: center;
   text-align: center;
-  background-color: #0b0a08;
-  background-image: linear-gradient(rgba(125, 90, 40, 0.16), rgba(125, 90, 40, 0.16)),
-    radial-gradient(ellipse at center, rgba(10, 9, 7, 0.2) 0%, rgba(10, 9, 7, 0.8) 100%),
-    linear-gradient(rgba(12, 11, 9, 0.5), rgba(12, 11, 9, 0.88)), url("images/chevrolet-bel-air-1957.jpg");
+  background-color: var(--bar-bg);
+  background-image: linear-gradient(var(--hero-tint), var(--hero-tint)),
+    radial-gradient(ellipse at center, var(--hero-radial-a) 0%, var(--hero-radial-b) 100%),
+    linear-gradient(var(--hero-linear-a), var(--hero-linear-b)), url("images/chevrolet-bel-air-1957.jpg");
   background-size: cover;
   background-position: center;
   border-bottom: 3px double var(--gold-dark);
@@ -134,16 +183,16 @@ h1, h2, h3, h4, h5, .navbar-brand {
   margin-bottom: 0;
   border-top: 1px solid var(--gold);
   border-bottom: 1px solid var(--gold);
-  color: var(--ivory);
+  color: var(--heading);
   font-weight: 700;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 14px var(--hero-glow);
 }
 .hero-tagline {
   font-family: var(--display);
   font-size: clamp(1.15rem, 2.5vw, 1.8rem);
   font-style: italic;
   line-height: 1.4;
-  color: var(--cream);
+  color: var(--text);
 }
 .hero-sub {
   letter-spacing: 0.32em;
@@ -182,7 +231,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
   font-size: clamp(2rem, 4vw, 3.2rem);
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: var(--ivory);
+  color: var(--heading);
 }
 #collection .section-label {
   display: flex;
@@ -216,7 +265,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
 }
 .btn-outline-cream {
   background-color: transparent;
-  color: var(--cream);
+  color: var(--text);
   border: 1px solid var(--gold);
   border-radius: 0;
   letter-spacing: 0.3em;
@@ -241,7 +290,7 @@ h1, h2, h3, h4, h5, .navbar-brand {
   color: var(--ink);
   border: 1px solid var(--gold-dark);
   border-radius: 0;
-  box-shadow: 0 0 0 5px #0b0a08, 0 0 0 6px rgba(133, 112, 63, 0.55), 0 14px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 0 5px var(--ring), 0 0 0 6px rgba(133, 112, 63, 0.55), var(--card-shadow);
   transition: border-color 0.4s ease;
 }
 .car-card:hover {
@@ -423,7 +472,7 @@ footer .container {
 .timeline-name {
   font-size: clamp(0.95rem, 1.05vw, 1.1rem);
   line-height: 1.35;
-  color: var(--cream);
+  color: var(--text);
 }
 .timeline-origin {
   font-size: 0.68rem;
@@ -502,7 +551,7 @@ footer .container {
 }
 
 footer {
-  background-color: #0b0a08;
+  background-color: var(--bar-bg);
   border-top: 3px double var(--gold-dark);
   color: var(--gold);
 }
@@ -517,7 +566,7 @@ footer {
   font-family: var(--display);
   font-size: 1.1rem;
   font-style: italic;
-  color: var(--cream);
+  color: var(--text);
 }
 .footer-links a {
   color: var(--gold);
@@ -535,7 +584,7 @@ footer {
   gap: 0.5rem 1.6rem;
 }
 .footer-links a:hover {
-  color: var(--cream);
+  color: var(--text);
   border-bottom-color: var(--gold-dark);
 }
 .footer-line {
@@ -555,3 +604,24 @@ footer {
 
 
     
+
+.navbar-toggler-icon {
+  filter: var(--toggler-filter);
+}
+.theme-toggle {
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--gold-dark);
+  border-radius: 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  padding: 0.35rem 0.65rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  background-color: var(--gold-dark);
+  border-color: var(--gold-dark);
+  color: var(--bar-bg);
+}
