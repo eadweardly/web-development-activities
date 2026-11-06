@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Philosopher — CALYX</title>
+  <meta name="description" content="A philosopher from the CALYX archive: life, school of thought, fields of inquiry and further reading.">
+  <meta name="theme-color" content="#1d1813">
+  <link rel="icon" href="assets/laurel.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <a class="visually-hidden-focusable" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container-xxl d-flex align-items-center justify-content-between gap-3">
+      <a class="brand" href="index.html"><img src="assets/laurel.svg" alt="" width="26" height="26"><span>CALYX</span></a>
+      <div class="d-flex align-items-center gap-3 gap-lg-4">
+        <nav class="d-none d-lg-block" aria-label="Main">
+          <ul class="site-nav">
+          <li><a href="library.html">Library</a></li>
+          <li><a href="index.html#schools" aria-current="page">Schools</a></li>
+          <li><a href="index.html#eras" aria-current="page">Eras</a></li>
+          </ul>
+        </nav>
+        <a class="icon-link" href="library.html#q" aria-label="Search the library"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l5 5"/></svg></a>
+        <button class="icon-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu" aria-label="Open menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="offcanvas offcanvas-end menu" tabindex="-1" id="menu" aria-labelledby="menu-title" data-bs-theme="dark">
+    <div class="offcanvas-header justify-content-between">
+      <h2 class="offcanvas-title m-0" id="menu-title"><a class="brand" href="index.html"><img src="assets/laurel.svg" alt="" width="26" height="26"><span>CALYX</span></a></h2>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form action="library.html" role="search">
+        <label class="visually-hidden" for="menu-q">Search for a philosopher</label>
+        <input id="menu-q" name="q" type="search" class="form-control" placeholder="Search for a philosopher…" autocomplete="off">
+      </form>
+      <ul class="menu-links">
+        <li><a href="library.html">Library</a></li>
+        <li><a href="index.html#schools" aria-current="page">Schools</a></li>
+        <li><a href="index.html#eras" aria-current="page">Eras</a></li>
+      </ul>
+    </div>
+  </div>
+  <main id="main" tabindex="-1">
+    <div class="container-xxl section" id="profile"></div>
+    <div id="kin"></div>
+    <noscript><div class="container-xxl"><p>CALYX reads its philosophers from the Philosophers API with JavaScript. Please enable JavaScript to open this page.</p></div></noscript>
+  </main>
+
+  <div class="modal fade field-modal" id="field-modal" tabindex="-1" aria-labelledby="field-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="field-title" tabindex="-1"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="field-body"></div>
+        <div class="modal-footer">
+          <a class="btn btn-calyx" id="field-library" href="library.html">See all in the library</a>
+          <button type="button" class="btn btn-calyx" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer on-dark">
+    <div class="container-xxl d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <p class="mb-0"><strong>CALYX</strong> · Build with purpose. Love with Grace.</p>
+      <nav aria-label="Footer">
+        <ul class="site-nav">
+          <li><a href="library.html">Library</a></li>
+          <li><a href="index.html#schools">Schools</a></li>
+          <li><a href="index.html#eras">Eras</a></li>
+        </ul>
+      </nav>
+      <p class="mb-0">Philosopher data from the <a href="https://philosophersapi.com">Philosophers API</a>.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/archive.js"></script>
+  <script src="js/fields.js"></script>
+  <script src="js/philosopher.js"></script>
+</body>
+</html>

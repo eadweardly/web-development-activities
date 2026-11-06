@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Philosophers Library — CALYX</title>
+  <meta name="description" content="Browse every philosopher in the CALYX archive. Search by name, school of thought, field of inquiry or era.">
+  <meta name="theme-color" content="#1d1813">
+  <link rel="icon" href="assets/laurel.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="page-library">
+  <a class="visually-hidden-focusable" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container-xxl d-flex align-items-center justify-content-between gap-3">
+      <a class="brand" href="index.html"><img src="assets/laurel.svg" alt="" width="26" height="26"><span>CALYX</span></a>
+      <div class="d-flex align-items-center gap-3 gap-lg-4">
+        <nav class="d-none d-lg-block" aria-label="Main">
+          <ul class="site-nav">
+          <li><a href="library.html" aria-current="page">Library</a></li>
+          <li><a href="index.html#schools">Schools</a></li>
+          <li><a href="index.html#eras">Eras</a></li>
+          </ul>
+        </nav>
+        <a class="icon-link" href="library.html#q" aria-label="Search the library"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M13 13l5 5"/></svg></a>
+        <button class="icon-link d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu" aria-label="Open menu"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="offcanvas offcanvas-end menu" tabindex="-1" id="menu" aria-labelledby="menu-title" data-bs-theme="dark">
+    <div class="offcanvas-header justify-content-between">
+      <h2 class="offcanvas-title m-0" id="menu-title"><a class="brand" href="index.html"><img src="assets/laurel.svg" alt="" width="26" height="26"><span>CALYX</span></a></h2>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form action="library.html" role="search">
+        <label class="visually-hidden" for="menu-q">Search for a philosopher</label>
+        <input id="menu-q" name="q" type="search" class="form-control" placeholder="Search for a philosopher…" autocomplete="off">
+      </form>
+      <ul class="menu-links">
+        <li><a href="library.html" aria-current="page">Library</a></li>
+        <li><a href="index.html#schools">Schools</a></li>
+        <li><a href="index.html#eras">Eras</a></li>
+      </ul>
+    </div>
+  </div>
+  <main id="main" tabindex="-1">
+    <div class="container-xxl">
+      <div class="page-head">
+        <h1>Philosophers Library</h1>
+        <p class="lede">Discover the thinkers who shaped history, ideas, and the human experience.</p>
+      </div>
+
+      <form class="filters" id="filters" role="search">
+        <div class="field-search">
+          <label class="visually-hidden" for="q">Search for a philosopher</label>
+          <input id="q" type="search" class="form-control" placeholder="Search for a philosopher…" autocomplete="off">
+        </div>
+        <div class="field-school">
+          <label class="visually-hidden" for="school">Filter by school of thought</label>
+          <select id="school" class="form-select"><option value="">Filter by School of Thought</option></select>
+        </div>
+      </form>
+
+      <div class="chips" id="chips" role="group" aria-label="Fields of inquiry"></div>
+
+      <div class="results-bar">
+        <p id="count" aria-live="polite"></p>
+        <div class="tools">
+          <label class="visually-hidden" for="era">Era</label>
+          <select id="era" class="form-select form-select-sm w-auto"><option value="">Any era</option></select>
+          <label class="visually-hidden" for="sort">Order</label>
+          <select id="sort" class="form-select form-select-sm w-auto">
+            <option value="name">Name (A–Z)</option>
+            <option value="born">Oldest first</option>
+            <option value="born-desc">Most recent first</option>
+          </select>
+          <div class="view-toggle" role="group" aria-label="Layout">
+            <button class="tag" type="button" data-view="plates" aria-pressed="true">Cards</button>
+            <button class="tag" type="button" data-view="index" aria-pressed="false">List</button>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="visually-hidden">Results</h2>
+      <div id="results"></div>
+      <nav id="pages" class="pages" aria-label="Library pages"></nav>
+      <noscript><p>CALYX reads its philosophers from the Philosophers API with JavaScript. Please enable JavaScript to open the library.</p></noscript>
+    </div>
+  </main>
+
+  <footer class="site-footer on-dark">
+    <div class="container-xxl d-flex flex-wrap align-items-center justify-content-between gap-3">
+      <p class="mb-0"><strong>CALYX</strong> · Build with purpose. Love with Grace.</p>
+      <nav aria-label="Footer">
+        <ul class="site-nav">
+          <li><a href="library.html">Library</a></li>
+          <li><a href="index.html#schools">Schools</a></li>
+          <li><a href="index.html#eras">Eras</a></li>
+        </ul>
+      </nav>
+      <p class="mb-0">Philosopher data from the <a href="https://philosophersapi.com">Philosophers API</a>.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/archive.js"></script>
+  <script src="js/library.js"></script>
+</body>
+</html>
