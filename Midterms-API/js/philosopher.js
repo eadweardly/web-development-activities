@@ -83,6 +83,16 @@ function lifespanText(p) {
   return years > 0 ? `About ${years} years` : "";
 }
 
+const listText = items => items.length < 3 ? items.join(" and ") : items.slice(0, -1).join(", ") + ", and " + items[items.length - 1];
+
+function summaryOf(p, era) {
+  const verb = p.d === null && p.b !== null && p.b > 1900 ? "is" : "was";
+  const school = p.schools.length ? `a thinker of the ${listText(p.schools)} ${p.schools.length > 1 ? "schools" : "school"}` : "a thinker listed in the archive";
+  const when = era ? `, active in the ${era.label} era (${era.span})` : "";
+  const work = p.interests.length ? `, whose work spans ${listText(p.interests)}` : "";
+  return `${p.name} (${p.span}) ${verb} ${school}${when}${work}.`;
+}
+
 function showProfile(p, all, kin) {
   const prev = all[(p.no - 2 + all.length) % all.length];
   const next = all[p.no % all.length];
@@ -131,7 +141,7 @@ function showProfile(p, all, kin) {
       </div>` : "";
 
   const details = extras.length ? `
-            <section class="overview mt-5" id="details" aria-labelledby="details-title">
+            <section class="overview mt-4" id="details" aria-labelledby="details-title">
               <h2 id="details-title">More details</h2>
               ${shortExtras.length ? `<dl class="facts">${shortExtras.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}</dl>` : ""}
               ${longExtras.length ? `<div class="detail-notes">${longExtras.map(([k, v]) => `<div><h3>${esc(k)}</h3><p>${esc(v)}</p></div>`).join("")}</div>` : ""}
@@ -149,12 +159,12 @@ function showProfile(p, all, kin) {
             <h1 class="profile-name">${esc(p.name)}</h1>
             <p class="profile-years">${esc(p.span)}</p>
             ${p.schools.length ? `<ul class="tags">${p.schools.map(s => `<li><a class="tag" href="library.html?school=${encodeURIComponent(s)}">${esc(s)}</a></li>`).join("")}</ul>` : ""}
-            ${p.topicalDescription ? `<p class="passage">${esc(p.topicalDescription)}</p>` : ""}
+            <p class="passage">${esc(p.topicalDescription || summaryOf(p, era))}</p>
           </div>
         </div>
         <div class="row g-4 mt-3">
           <div class="col-12 col-md-4 col-xl-3">
-            <nav aria-label="On this page">
+            <nav class="side-nav-wrap" aria-label="On this page">
               <ul class="side-nav d-flex flex-wrap flex-md-column">${sections.map(([anchor, label], i) => `<li><a href="#${anchor}"${i === 0 ? ' aria-current="true"' : ""}>${label}</a></li>`).join("")}</ul>
             </nav>
           </div>
