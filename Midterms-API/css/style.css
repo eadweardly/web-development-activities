@@ -170,6 +170,7 @@ option { color: var(--ink); background: var(--ivory); }
 .era-span { display: block; font-size: .85rem; letter-spacing: .08em; opacity: .7; font-variant-numeric: oldstyle-nums; }
 
 .page-library::after { content: ""; position: fixed; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(235, 225, 202, .6) 0%, rgba(235, 225, 202, .4) 45%, rgba(235, 225, 202, .4) 100%), url("../assets/library-bg.png") center / cover no-repeat; pointer-events: none; }
+.page-philosopher::after { content: ""; position: fixed; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(235, 225, 202, .72) 0%, rgba(235, 225, 202, .6) 100%), url("../assets/philosopher-bg.jpg") center / cover no-repeat; pointer-events: none; }
 .page-head { position: relative; padding-block: clamp(1.5rem, 4vw, 3rem) 1.75rem; }
 .page-head::after { content: ""; position: absolute; top: -4.5rem; right: 0; width: clamp(0px, calc((100vw - 40rem) * .6), 18rem); aspect-ratio: 12 / 13; background: var(--pediment) no-repeat right top / contain; opacity: .7; pointer-events: none; }
 .page-head > * { position: relative; z-index: 1; }
